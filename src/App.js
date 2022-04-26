@@ -23,7 +23,12 @@ function App() {
   return (
     <RecipesProvider>
       <Switch>
-        <Route exact path="/" component={ Login } />
+        <Route
+          exact
+          path="/"
+          component={ Login }
+          render={ (props) => <Login { ...props } /> }
+        />
         {/* <Route exact path="/foods" component={ Foods } />
           <Route exact path="/drinks" component={ Drinks } />
           <Route
