@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RecipesProvider from './context/RecipesProvider';
 import Login from './pages/Login';
-// import Foods from './pages/Foods';
+import Foods from './pages/Foods';
 // import Drinks from './pages/Drinks';
 // import Explore from './pages/Explore';
 // import Profile from './pages/Profile';
@@ -29,7 +29,8 @@ function App() {
           component={ Login }
           render={ (props) => <Login { ...props } /> }
         />
-        {/* <Route exact path="/foods" component={ Foods } />
+        <Route exact path="/foods" component={ Foods } />
+        {/*
           <Route exact path="/drinks" component={ Drinks } />
           <Route
             exact
