@@ -29,7 +29,7 @@ function App() {
         <Route
           exact
           path="/"
-          component={ Login }
+          // component={ Login }
           render={ (props) => <Login { ...props } /> }
         />
         <Route
