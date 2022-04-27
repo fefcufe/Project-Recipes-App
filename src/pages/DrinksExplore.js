@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
-=======
 import Header from '../components/Header';
->>>>>>> pre-main-group-16
 
 function DrinksExplore({ history }) {
   const [randomSupriseDrinks, setRandomSupriseDrinks] = useState(false);

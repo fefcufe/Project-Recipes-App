@@ -1,10 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
 import Footer from '../components/Footer';
-import HeaderWithSearch from '../components/HeaderWithSearch';
-=======
 import Header from '../components/Header';
->>>>>>> pre-main-group-16
 
 function FoodExploreNationalities() {
   const nacionalidade = []; // por conta do lint / temporario

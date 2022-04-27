@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-<<<<<<< HEAD
 import Footer from '../components/Footer';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
-=======
 import Header from '../components/Header';
->>>>>>> pre-main-group-16
 
 function Profile({ history }) {
   return (
