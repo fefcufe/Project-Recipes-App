@@ -7,6 +7,7 @@ function SearchBar() {
       <input
         type="text"
         placeholder="Search Recipe"
+        data-testid="search-input"
       />
       <label htmlFor="ingredient-search-radio">
         Ingredient
