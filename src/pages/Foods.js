@@ -1,10 +1,14 @@
 import React from 'react';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 
-function Foods() {
+function Foods(props) {
   return (
-    <SearchBar />
-    // isso aqui serviu apenas pra checar a search bar. Podem remover
+    <>
+      <Header { ...props } />
+      <h1 data-testid="page-title">Foods</h1>
+    </>
+
   );
 }
+
 export default Foods;

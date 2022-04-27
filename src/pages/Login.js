@@ -1,30 +1,54 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
 
 function Login({ history }) {
-  // const handleClick = () => {
-  //   const { email, setEmail, password, setPassword } = contextValue;
-  //   const validEmail
-  // }
-  /* const { contextValue } = useContext(RecipesContext); */
+  const { email, setEmail, password,
+    setPassword, isButtonDisabled, setButton } = useContext(RecipesContext);
+
+  const handleClick = () => {
+    localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    history.push('/foods');
+  };
+
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const validEmail = emailRegex.test(email);
+    const MIN_LENGTH = 6;
+    const validPassword = password.length > MIN_LENGTH;
+    if (validEmail && validPassword) {
+      return setButton(false);
+    }
+    return setButton(true);
+  }, [email, password, setButton]);
+
   return (
     <div>
       <label htmlFor="email-input">
-        <input type="text" data-testid="email-input" id="email-input" />
+        <input
+          type="text"
+          data-testid="email-input"
+          id="email-input"
+          value={ email }
+          onChange={ (e) => setEmail(e.target.value) }
+        />
       </label>
       <label htmlFor="password-input">
         <input
           data-testid="password-input"
           type="password"
           id="password-input"
-          // value={ contextValue.email }
+          value={ password }
+          onChange={ (e) => setPassword(e.target.value) }
         />
       </label>
       <button
         type="button"
         data-testid="login-submit-btn"
-        // disabled={ disabled }
-        onClick={ () => history.push('/foods') }
+        disabled={ isButtonDisabled }
+        onClick={ handleClick }
       >
         Enter
       </button>

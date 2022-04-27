@@ -3,17 +3,30 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
-  const contextValue = {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isButtonDisabled, setButton] = useState(true);
+
+  /* const contextValue = {
     email,
     setEmail,
     password,
     setPassword,
-  };
+    isButtonDisabled,
+    setButton,
+  }; */
 
   return (
-    <RecipesContext.Provider value={ contextValue }>
+    <RecipesContext.Provider
+      value={
+        { email,
+          setEmail,
+          password,
+          setPassword,
+          isButtonDisabled,
+          setButton }
+      }
+    >
       { children }
     </RecipesContext.Provider>
   );

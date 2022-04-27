@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function SearchBar() {
   return (
@@ -44,5 +45,10 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  history: PropTypes.node,
+  push: PropTypes.func,
+}.isRequired;
 
 export default SearchBar;
