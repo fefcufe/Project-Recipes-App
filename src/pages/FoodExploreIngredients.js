@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function FoodExploreIngredients() {
@@ -12,7 +13,7 @@ function FoodExploreIngredients() {
         <img src="" alt="" data-testid={ `${index}-card-img` } />
         <p data-testid={ `${index}-card-name` }>Nome</p>
       </div>
-
+      <Footer />
     </>
   );
 }

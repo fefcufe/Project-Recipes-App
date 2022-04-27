@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function FoodExploreNationalities() {
@@ -10,6 +11,7 @@ function FoodExploreNationalities() {
       <select data-testid="explore-by-nationality-dropdown">
         <option data-testid={ `${nacionalidade}-option` } aria-label="nacionality" />
       </select>
+      <Footer />
     </>
   );
 }
