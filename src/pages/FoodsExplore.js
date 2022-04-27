@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Header from '../components/Header';
 
 function FoodsExplore({ history }) {
   const [randomSupriseFoods, setRandomSupriseFoods] = useState(false);
@@ -21,7 +21,7 @@ function FoodsExplore({ history }) {
   }, []);
   return (
     <>
-      <HeaderWithoutSearch />
+      <Header />
       <h1 data-testid="page-title">Explore Foods</h1>
       <button
         type="button"

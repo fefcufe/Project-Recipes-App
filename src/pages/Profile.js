@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Header from '../components/Header';
 
 function Profile({ history }) {
   return (
     <>
-      <HeaderWithoutSearch />
+      <Header />
       <h1 data-testid="page-title">Profile</h1>
       <div>
         <p data-testid="profile-email"> email </p>

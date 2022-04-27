@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Header from '../components/Header';
 
 function Explore({ history }) {
   return (
     <>
-      <HeaderWithoutSearch />
+      <Header />
       <h1 data-testid="page-title">Explore</h1>
       <button
         data-testid="explore-foods"

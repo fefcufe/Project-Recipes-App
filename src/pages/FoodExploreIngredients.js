@@ -1,11 +1,11 @@
 import React from 'react';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Header from '../components/Header';
 
 function FoodExploreIngredients() {
   const index = 0; // lint / temporario
   return (
     <>
-      <HeaderWithoutSearch />
+      <Header />
       <h1 data-testid="page-title">Explore Ingredients</h1>
       <div>
         <h2 data-testid={ `${index}-ingredient-card` }> Ingrediente </h2>
