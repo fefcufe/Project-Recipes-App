@@ -1,0 +1,23 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+
+function HeaderWithoutSearch({ history }) {
+  return (
+    <header>
+      <button type="button" onClick={ () => history.push('/profile') }>
+        <img
+          src="src/images/profileIcon.svg"
+          alt="Profile Icon"
+          data-testid="profile-top-btn"
+        />
+      </button>
+    </header>
+  );
+}
+
+HeaderWithoutSearch.propTypes = {
+  history: PropTypes.node,
+  push: PropTypes.func.isRequired,
+}.isRequired;
+
+export default HeaderWithoutSearch;
