@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import Header from '../components/Header';
 
 function FavoriteRecipes() {
   return (
     <>
-      <HeaderWithoutSearch />
+      <Header />
       <h1 data-testid="page-title">Favorite Recipes</h1>
     </>
   );

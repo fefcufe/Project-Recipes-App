@@ -1,11 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
-import HeaderWithSearch from '../components/HeaderWithSearch';
+import Header from '../components/Header';
 
 function Foods(props) {
   return (
     <>
-      <HeaderWithSearch { ...props } />
+      <Header { ...props } />
       <h1 data-testid="page-title">Foods</h1>
       <Footer />
     </>
