@@ -16,7 +16,6 @@ function FoodsExplore({ history }) {
     const requestAPI = async () => {
       const results = await fetchAPIReturn();
       setRandomSupriseFoods(results);
-      console.log(results);
     };
     requestAPI();
   }, []);

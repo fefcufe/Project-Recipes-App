@@ -11,7 +11,7 @@ function Foods() {
   useEffect(() => {
     getFood();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getFood]);
 
   return (
     <>
