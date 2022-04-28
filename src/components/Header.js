@@ -21,7 +21,6 @@ function Header() {
           />
         </button>
         <h1 data-testid="page-title">`Este é o titulo  strMeal`</h1>
-        {/* tem que ficar dentro duma condicional para nao aparecer em certas paginas */}
         { (history.location.pathname && pathNames
           .some((path) => history.location.pathname === path))
         && (
