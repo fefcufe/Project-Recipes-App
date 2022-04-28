@@ -11,7 +11,6 @@ function FoodExploreNationalities() {
     return jsonAPI.meals;
   };
 
-  const limite = 12;
   useEffect(() => {
     const requestAPI = async () => {
       const results = await fetchAPIReturn();
@@ -26,7 +25,6 @@ function FoodExploreNationalities() {
       <select data-testid="explore-by-nationality-dropdown">
         { nationalities[0] && Object
           .values(nationalities)
-          .slice(0, limite)
           .map(({ strArea }) => (
             <option
               data-testid={ `${strArea}-option` }

@@ -43,8 +43,6 @@ function Header() {
 
 Header.propTypes = {
   history: PropTypes.node,
-  location: PropTypes.node.isRequired,
-  pathname: PropTypes.node.isRequired,
   push: PropTypes.func.isRequired,
 }.isRequired;
 
