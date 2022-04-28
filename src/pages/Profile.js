@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
 
 function Profile({ history }) {
+  const { email } = useContext(RecipesContext);
+
+  const handleClick = () => {
+    localStorage.clear();
+    history.push('/');
+  };
   return (
     <>
       <Header />
       <h1 data-testid="page-title">Profile</h1>
       <div>
-        <p data-testid="profile-email"> email </p>
+        <p data-testid="profile-email">
+          {localStorage.getItem('user', JSON.stringify({ email }))}
+        </p>
         <button
           type="button"
           data-testid="profile-done-btn"
@@ -27,7 +36,7 @@ function Profile({ history }) {
         <button
           type="button"
           data-testid="profile-logout-btn"
-          onClick={ () => history.push('/') }
+          onClick={ () => handleClick() }
         >
           Logout
         </button>
