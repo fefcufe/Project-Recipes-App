@@ -8,11 +8,7 @@ function Profile({ history }) {
   const { email } = useContext(RecipesContext);
 
   const handleClick = () => {
-    localStorage.setItem('user', JSON.stringify({ email }));
-    localStorage.setItem('mealsToken', null);
-    localStorage.setItem('cocktailsToken', null);
-    localStorage.setItem('doneRecipes', null);
-    localStorage.setItem('favoriteRecipes', null);
+    localStorage.clear();
     history.push('/');
   };
   return (
