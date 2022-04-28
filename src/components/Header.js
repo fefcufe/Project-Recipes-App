@@ -7,12 +7,6 @@ import SearchBar from './SearchBar';
 
 function Header() {
   const history = useHistory();
-  // const [pathName, setPathName] = useState('/drinks');
-
-  // useEffect(() => {
-  //   const { pathname } = history.location;
-  //   setPathName(pathname);
-  // }, [pathName, setPathName, history]);
 
   const [showBar, setShowBar] = useState(false);
   const pathNames = ['/drinks', '/foods', '/explore/foods/nationalities'];
