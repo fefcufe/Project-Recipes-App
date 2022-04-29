@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import SearchBar from './SearchBar';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
-function Header({ history }) {
+function Header() {
+  const history = useHistory();
+
   const [showBar, setShowBar] = useState(false);
+  const pathNames = ['/drinks', '/foods', '/explore/foods/nationalities'];
   return (
     <div>
       <header>
@@ -17,18 +21,20 @@ function Header({ history }) {
           />
         </button>
         <h1 data-testid="page-title">`Este é o titulo  strMeal`</h1>
-        <button
-          type="button"
-          onClick={ () => (setShowBar(!showBar)) }
-        >
-          {/* tem que ficar dentro duma condicional para nao aparecer em certas paginas */}
-          <img
-            src={ searchIcon }
-            alt="Search Icon"
-            data-testid="search-top-btn"
+        { (history.location.pathname && pathNames
+          .some((path) => history.location.pathname === path))
+        && (
+          <button
+            type="button"
+            onClick={ () => (setShowBar(!showBar)) }
+          >
+            <img
+              src={ searchIcon }
+              alt="Search Icon"
+              data-testid="search-top-btn"
 
-          />
-        </button>
+            />
+          </button>)}
       </header>
       {showBar && <SearchBar />}
     </div>
@@ -37,6 +43,8 @@ function Header({ history }) {
 
 Header.propTypes = {
   history: PropTypes.node,
+  location: PropTypes.node.isRequired,
+  pathname: PropTypes.node.isRequired,
   push: PropTypes.func.isRequired,
 }.isRequired;
 

@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function FoodExploreNationalities() {
-  const nacionalidade = []; // por conta do lint / temporario
+  const [nationalities, setNationalities] = useState([]);
+
+  const fetchAPIReturn = async () => {
+    const fetchAPI = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const jsonAPI = await fetchAPI.json();
+    return jsonAPI.meals;
+  };
+
+  const limite = 12;
+  useEffect(() => {
+    const requestAPI = async () => {
+      const results = await fetchAPIReturn();
+      setNationalities(results);
+    };
+    requestAPI();
+  }, [setNationalities]);
   return (
     <>
       <Header />
       <h1 data-testid="page-title">Explore Nationalities</h1>
       <select data-testid="explore-by-nationality-dropdown">
-        <option data-testid={ `${nacionalidade}-option` } aria-label="nacionality" />
+        { nationalities[0] && Object
+          .values(nationalities)
+          .slice(0, limite)
+          .map(({ strArea }) => (
+            <option
+              data-testid={ `${strArea}-option` }
+              aria-label="nacionality"
+              key={ strArea }
+            >
+              { strArea }
+            </option>
+          ))}
       </select>
       <Footer />
     </>
