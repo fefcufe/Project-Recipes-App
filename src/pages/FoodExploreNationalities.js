@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import mealIcon from '../images/mealIcon.svg';
+import { italianMeals, japaneseMeals, meals } from '../new';
 
 function FoodExploreNationalities() {
+  const history = useHistory();
+
   const [nationalities, setNationalities] = useState([]);
-  const [nationalitiesFood, setNationalitiesFood] = useState([]);
+  const [mealsByNation, setMealsByNation] = useState([]);
 
   const [nation, setNation] = useState('American');
   const url1 = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
@@ -21,16 +24,25 @@ function FoodExploreNationalities() {
     const requestAPI = async () => {
       const results = await fetchAPIReturn(url1);
       setNationalities(results);
-      const cardResults = ['0', '1', '2', '3', ' 4', '5', '6', '7', '8', '9', '10', '11'];
-      setNationalitiesFood(cardResults);
     };
     requestAPI();
   }, [setNationalities]);
   const limit = 12;
 
   const requestAPI2 = async (e) => {
+    // paliativo
+    if (e === 'All') {
+      return setMealsByNation(meals.meals);
+    }
+    if (e === 'Japanese') {
+      return setMealsByNation(japaneseMeals.meals);
+    }
+    if (e === 'Italian') {
+      return setMealsByNation(italianMeals.meals);
+    }
+    // fim paliativo
     const cardResults = await fetchAPIReturn(url2);
-    setNationalitiesFood(cardResults);
+    setMealsByNation(cardResults);
     setNation(e);
   };
 
@@ -54,23 +66,38 @@ function FoodExploreNationalities() {
               { strArea }
             </option>
           ))}
+        <option
+          data-testid="All-option"
+          aria-label="nacionality"
+          key="All"
+          name="All"
+        >
+          All
+        </option>
       </select>
-      {nationalitiesFood && nationalitiesFood
-        .slice(0, limit)
-        .map((food, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ index }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ food.strMealThumb
-                ? food.strMealThumb
-                : mealIcon }
-              alt=""
-            />
-            <p data-testid={ `${index}-card-name` }>
-              { food.strMeal }
-            </p>
-          </div>
-        ))}
+      <section>
+        { (mealsByNation[0] ? mealsByNation : meals.meals)
+          .slice(0, limit)
+          .map((food, index) => (
+            <button
+              type="button"
+              className="recipe-card"
+              data-testid={ `${index}-recipe-card` }
+              key={ index }
+              onClick={ () => history.push(`/foods/${food.idMeal}`) }
+            >
+              <img
+                width="100px"
+                data-testid={ `${index}-card-img` }
+                src={ food.strMealThumb }
+                alt=""
+              />
+              <p data-testid={ `${index}-card-name` }>
+                { food.strMeal }
+              </p>
+            </button>
+          ))}
+      </section>
       <Footer />
     </>
   );

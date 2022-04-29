@@ -9,7 +9,7 @@ function Profile({ history }) {
 
   const handleClick = () => {
     localStorage.clear();
-    localStorage.setItem('user', JSON.stringify({ email }));
+    // localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/');
   };
   return (
