@@ -13,7 +13,6 @@ function Foods() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getFood]);
 
-  console.log(food);
   return (
     <>
       <Header />

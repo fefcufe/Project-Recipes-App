@@ -7,10 +7,10 @@ const S = 's=';
 const F = 'f=';
 
 const searchByNameOrFLetter = (nameOrLetter) => (
-  `https://www.themealdb.com/api/json/v1/1/search.php?${nameOrLetter}`
+  `www.themealdb.com/api/json/v1/1/search.php?${nameOrLetter}`
 );
 const searchByIngredient = (ingredient) => (
-  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+  `www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
 );
 
 function SearchBar() {
