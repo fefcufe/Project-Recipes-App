@@ -19,9 +19,10 @@ footer {
 
 .CardImg {
   width: 100px;
+  height: 100px;
 }
 
 .cardsContainer {
-  display: inline-block;
+  display: flex;
   width: 310px;
 }
