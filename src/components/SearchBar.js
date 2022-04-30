@@ -6,11 +6,17 @@ import RecipesContext from '../context/RecipesContext';
 const S = 's=';
 const F = 'f=';
 
-const searchByNameOrFLetter = (nameOrLetter) => (
-  `www.themealdb.com/api/json/v1/1/search.php?${nameOrLetter}`
+const foodSearchByNameOrFLetter = (nameOrLetter) => (
+  `https://www.themealdb.com/api/json/v1/1/search.php?${nameOrLetter}`
 );
-const searchByIngredient = (ingredient) => (
-  `www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+const foodSearchByIngredient = (ingredient) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+);
+const drinkSearchByNameOrFLetter = (nameOrLetter) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/search.php?${nameOrLetter}`
+);
+const drinkSearchByIngredient = (ingredient) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
 );
 
 function SearchBar() {
@@ -20,15 +26,23 @@ function SearchBar() {
   const areYouFoodPage = useHistory().location.pathname.includes('foods');
 
   const URLGenerator = (param) => {
+    if (areYouFoodPage) {
+      if (selectedRadio === 'ingredient') {
+        return foodSearchByIngredient(param);
+      }
+      if (selectedRadio === 'name') {
+        return foodSearchByNameOrFLetter(S.concat(param));
+      }
+      return foodSearchByNameOrFLetter(F.concat(param));
+    }
+
     if (selectedRadio === 'ingredient') {
-      return searchByIngredient(param);
+      return drinkSearchByIngredient(param);
     }
     if (selectedRadio === 'name') {
-      return searchByNameOrFLetter(S.concat(param));
+      return drinkSearchByNameOrFLetter(S.concat(param));
     }
-    if (selectedRadio === 'firstLetter') {
-      return searchByNameOrFLetter(F.concat(param));
-    }
+    return drinkSearchByNameOrFLetter(F.concat(param));
   };
 
   return (

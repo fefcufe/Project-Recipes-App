@@ -1,36 +1,31 @@
 import React, { useContext, useEffect } from 'react';
-import Footer from '../components/Footer';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
+import Cards from '../components/Cards';
 
 const limite = 12;
 
-function Foods() {
+function Foods(props) {
   const { getFood, food } = useContext(RecipesContext);
+  // const { history } = props;
 
   useEffect(() => {
     getFood();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getFood]);
+  }, []);
+
+  const { meals } = food;
 
   return (
     <>
-      <Header />
+      <Header { ...props } />
       <h1 data-testid="page-title">Foods</h1>
-      <div>
-        { food.slice(0, limite).map((meal) => {
-          const { strMealThumb: image, strMeal: name, idMeal: id } = meal;
-          return (
-
-            <>
-              <ul>{name}</ul>
-              <ul>{id}</ul>
-              <ul>{image}</ul>
-              <ul>{meal.name}</ul>
-            </>
-
-          );
-        })}
+      <div className="cardsContainer">
+        {meals && meals.slice(0, limite).map((meal, index) => (
+          <Cards meal={ meal } key={ index } index={ index } />
+        ))}
 
       </div>
       <Footer />
@@ -38,5 +33,9 @@ function Foods() {
 
   );
 }
+
+Foods.propTypes = {
+  history: PropTypes.func,
+}.isRequired;
 
 export default Foods;

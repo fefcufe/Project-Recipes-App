@@ -4,13 +4,13 @@
 // Roger aqui. Consegui resolver a URL dinamica passando ela quando fizer a busca, desta forma a função FETCH ja recebe a url correta como parametro
 
 async function fetchFood(param) {
-  console.log(param);
   const response = await fetch(param);
   const foodResponse = await response.json();
   return foodResponse;
 }
 
 async function fetchDrink(param) {
+  console.log(param);
   const response = await fetch(param);
   const drinkResponse = await response.json();
 
