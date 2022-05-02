@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Cards({ meal }, index) {
+function Cards({ meal, index }) {
   const { strMeal, strMealThumb } = meal;
   return (
     <div data-testid={ `${index}-recipe-card` }>
