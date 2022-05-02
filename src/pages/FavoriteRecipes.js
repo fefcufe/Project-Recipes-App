@@ -21,10 +21,10 @@ function FavoriteRecipes() {
       : `http://localhost:3000/drinks/${id}`);
     setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
   };
-  // Apagar essa linha dps que o requisito 17, tiver feito
+  // Apagar essa linha dps
   localStorage.setItem('favoriteRecipes', JSON.stringify({ favoriteRecipes }));
 
-  const unLikeItem = (itemTarget) => {
+  const unLikedItem = (itemTarget) => {
     // Pedir ajuda no 64.
     console.log(itemTarget);
 
@@ -107,7 +107,7 @@ function FavoriteRecipes() {
             </button>
             <button
               type="button"
-              onClick={ () => unLikeItem(item) }
+              onClick={ () => unLikedItem(item) }
             >
               <img
                 src={ blackHeartIcon }
@@ -116,6 +116,7 @@ function FavoriteRecipes() {
               />
             </button>
             { copiedIt && <p>Link copied!</p> }
+            {/* Melhorar lógica do Copy? */}
           </div>
         ))}
     </>
