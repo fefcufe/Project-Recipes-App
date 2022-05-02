@@ -9,14 +9,14 @@ function RecipesProvider({ children }) {
   const [isButtonDisabled, setButton] = useState(true);
 
   const [food, setFood] = useState([]);
-  async function getFood() {
-    const foodResponse = await fetchFood();
+  async function getFood(param) {
+    const foodResponse = await fetchFood(param);
     setFood(foodResponse);
   }
 
   const [drink, setDrink] = useState([]);
-  async function getDrink() {
-    const drinkResponse = await fetchDrink();
+  async function getDrink(param) {
+    const drinkResponse = await fetchDrink(param);
     setDrink(drinkResponse);
   }
 
