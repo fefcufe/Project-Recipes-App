@@ -26,14 +26,19 @@ function FavoriteRecipes() {
 
   const unLikedItem = ({ target }) => {
     // Pedir ajuda no 64.
-    target.parentNode.parentNode.remove();
-    // const get = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const parentDiv = target.parentNode.parentNode;
+    parentDiv.remove();
+    let get = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-    // const a = get.favoriteRecipes.length > 0
-    // && get.favoriteRecipes.filter((item) => item.id !== itemTarget.id);
-
-    // localStorage.removeItem('favoriteRecipes');
-    // localStorage.setItem('favoriteRecipes', JSON.stringify(a));
+    if (get.favoriteRecipes) {
+      const updatedData = get.favoriteRecipes.filter(
+        (item) => !parentDiv.innerText.includes(item.name),
+      );
+      get = updatedData;
+      localStorage.removeItem('favoriteRecipes');
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedData));
+    }
+    localStorage.removeItem('favoriteRecipes');
   };
 
   return (
