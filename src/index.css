@@ -16,3 +16,13 @@ footer {
   bottom: 0;
   position: fixed;
 }
+
+.CardImg {
+  width: 100px;
+  height: 100px;
+}
+
+.cardsContainer {
+  display: flex;
+  width: 310px;
+}

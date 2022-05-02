@@ -1,34 +1,47 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 
 const S = 's=';
 const F = 'f=';
 
-const searchByNameOrFLetter = (nameOrLetter) => (
-  `www.themealdb.com/api/json/v1/1/search.php?${nameOrLetter}`
+const foodSearchByNameOrFLetter = (nameOrLetter) => (
+  `https://www.themealdb.com/api/json/v1/1/search.php?${nameOrLetter}`
 );
-const searchByIngredient = (ingredient) => (
-  `www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+const foodSearchByIngredient = (ingredient) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+);
+const drinkSearchByNameOrFLetter = (nameOrLetter) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/search.php?${nameOrLetter}` // www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
+);
+const drinkSearchByIngredient = (ingredient) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
 );
 
 function SearchBar() {
   const { getFood, getDrink } = useContext(RecipesContext);
-  const [selectedRadio, setSelectedRadio] = useState('ingredient'); // by name = ?s=~name~ // // first letter = ?f=~letra~ // // by id = ?=i~number~ // // ingredient i=~string~
   const [inputValue, setInputValue] = useState('');
+  const [selectedRadio, setSelectedRadio] = useState('ingredient'); // by name = ?s=~name~ // // first letter = ?f=~letra~ // // by id = ?=i~number~ // // ingredient i=~string~
   const areYouFoodPage = useHistory().location.pathname.includes('foods');
 
-  const URLGenerator = (param) => {
+  const foodURLGenerator = (param) => {
     if (selectedRadio === 'ingredient') {
-      return searchByIngredient(param);
+      return foodSearchByIngredient(param);
     }
     if (selectedRadio === 'name') {
-      return searchByNameOrFLetter(S.concat(param));
+      return foodSearchByNameOrFLetter(S.concat(param));
     }
-    if (selectedRadio === 'firstLetter') {
-      return searchByNameOrFLetter(F.concat(param));
+    return foodSearchByNameOrFLetter(F.concat(param));
+  };
+
+  const drinkURLGenerator = (param) => {
+    if (selectedRadio === 'ingredient') {
+      return drinkSearchByIngredient(param);
     }
+    if (selectedRadio === 'name') {
+      return drinkSearchByNameOrFLetter(S.concat(param));
+    }
+    return drinkSearchByNameOrFLetter(F.concat(param));
   };
 
   return (
@@ -37,7 +50,15 @@ function SearchBar() {
         type="text"
         placeholder="Search Recipe"
         data-testid="search-input"
-        onChange={ ({ target }) => setInputValue(target.value) }
+        onChange={ ({ target }) => {
+          if (selectedRadio === 'firstLetter') {
+            if (target.value.length > 1) {
+              global.alert('Your search must have only 1 (one) character');
+            }
+            setInputValue(target.value);
+          }
+          setInputValue(target.value);
+        } }
       />
       <label htmlFor="ingredient-search-radio">
         Ingredient
@@ -74,8 +95,8 @@ function SearchBar() {
         data-testid="exec-search-btn"
         onClick={
           areYouFoodPage
-            ? () => getFood(URLGenerator(inputValue))
-            : () => getDrink(URLGenerator(inputValue))
+            ? () => getFood(foodURLGenerator(inputValue))
+            : () => getDrink(drinkURLGenerator(inputValue))
         }
       >
         Search
@@ -83,10 +104,5 @@ function SearchBar() {
     </div>
   );
 }
-
-SearchBar.propTypes = {
-  history: PropTypes.node,
-  push: PropTypes.func,
-}.isRequired;
 
 export default SearchBar;
