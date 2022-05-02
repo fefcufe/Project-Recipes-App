@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { italianMeals, japaneseMeals, meals } from '../new';
+import { meals } from '../new';
 
 function FoodExploreNationalities() {
   const history = useHistory();
@@ -10,9 +10,7 @@ function FoodExploreNationalities() {
   const [nationalities, setNationalities] = useState([]);
   const [mealsByNation, setMealsByNation] = useState([]);
 
-  const [nation, setNation] = useState('American');
   const url1 = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
-  const url2 = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nation}`;
 
   const fetchAPIReturn = async (url) => {
     const fetchAPI = await fetch(url);
@@ -30,20 +28,17 @@ function FoodExploreNationalities() {
   const limit = 12;
 
   const requestAPI2 = async (e) => {
-    // paliativo
+    //  meals.meals é temporário
+
     if (e === 'All') {
       return setMealsByNation(meals.meals);
+      // Qual é a API que retorna todas as comidas?
+      // requisito 17?
     }
-    if (e === 'Japanese') {
-      return setMealsByNation(japaneseMeals.meals);
-    }
-    if (e === 'Italian') {
-      return setMealsByNation(italianMeals.meals);
-    }
-    // fim paliativo
+
+    const url2 = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${e}`;
     const cardResults = await fetchAPIReturn(url2);
     setMealsByNation(cardResults);
-    setNation(e);
   };
 
   return (
@@ -76,7 +71,7 @@ function FoodExploreNationalities() {
         </option>
       </select>
       <section>
-        { (mealsByNation[0] ? mealsByNation : meals.meals)
+        { (mealsByNation[0] ? mealsByNation : meals.meals) // meals.meals é temporário
           .slice(0, limit)
           .map((food, index) => (
             <button

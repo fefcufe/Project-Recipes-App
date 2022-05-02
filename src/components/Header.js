@@ -13,14 +13,18 @@ function Header() {
   return (
     <div>
       <header>
-        <button type="button" onClick={ () => history.push('/profile') }>
+        <button
+          type="button"
+          data-testid="btn-profile"
+          onClick={ () => history.push('/profile') }
+        >
           <img
             src={ profileIcon }
             alt="Profile Icon"
             data-testid="profile-top-btn"
           />
         </button>
-        <h1 data-testid="page-title">`Este é o titulo  strMeal`</h1>
+        {/* <h1 data-testid="page-title">`Este é o titulo  strMeal`</h1> */}
         { (history.location.pathname && pathNames
           .some((path) => history.location.pathname === path))
         && (
