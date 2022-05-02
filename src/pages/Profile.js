@@ -14,7 +14,7 @@ function Profile({ history }) {
       <h1 data-testid="page-title">Profile</h1>
       <div>
         <p data-testid="profile-email">
-          {JSON.parse(localStorage.getItem('user'))}
+          {localStorage.getItem('user')}
         </p>
         <button
           type="button"
