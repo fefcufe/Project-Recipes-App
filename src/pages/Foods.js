@@ -12,7 +12,7 @@ function Foods(props) {
   // const { history } = props;
 
   useEffect(() => {
-    getFood();
+    getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -24,7 +24,7 @@ function Foods(props) {
       <h1 data-testid="page-title">Foods</h1>
       <div className="cardsContainer">
         {meals && meals.slice(0, limite).map((meal, index) => (
-          <Cards meal={ meal } key={ index } index={ index } />
+          <Cards meal={ meal } key={ meal.idMeal } index={ index } />
         ))}
 
       </div>
