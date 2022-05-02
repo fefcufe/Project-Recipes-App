@@ -16,7 +16,6 @@ function DrinksExplore({ history }) {
     const requestAPI = async () => {
       const results = await fetchAPIReturn();
       setRandomSupriseDrinks(results);
-      console.log(results);
     };
     requestAPI();
   }, []);
