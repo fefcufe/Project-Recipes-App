@@ -10,7 +10,7 @@ function FoodExploreNationalities() {
   const [nationalities, setNationalities] = useState([]);
   const [mealsByNation, setMealsByNation] = useState([]);
 
-  const url1 = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const apiNationList = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 
   const fetchAPIReturn = async (url) => {
     const fetchAPI = await fetch(url);
@@ -20,25 +20,24 @@ function FoodExploreNationalities() {
 
   useEffect(() => {
     const requestAPI = async () => {
-      const results = await fetchAPIReturn(url1);
+      const results = await fetchAPIReturn(apiNationList);
       setNationalities(results);
     };
     requestAPI();
   }, [setNationalities]);
   const limit = 12;
 
-  const requestAPI2 = async (e) => {
-    //  meals.meals é temporário
-
-    if (e === 'All') {
+  const requestAPI2 = async (nation) => {
+    if (nation === 'All') {
       return setMealsByNation(meals.meals);
+      //  meals.meals é temporário
       // Qual é a API que retorna todas as comidas?
       // requisito 17?
     }
 
-    const url2 = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${e}`;
-    const cardResults = await fetchAPIReturn(url2);
-    setMealsByNation(cardResults);
+    const apiMealsByNation = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nation}`;
+    const arrayMealsByNation = await fetchAPIReturn(apiMealsByNation);
+    setMealsByNation(arrayMealsByNation);
   };
 
   return (
