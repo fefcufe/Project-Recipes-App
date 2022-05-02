@@ -24,10 +24,9 @@ function FavoriteRecipes() {
   // Apagar essa linha dps
   localStorage.setItem('favoriteRecipes', JSON.stringify({ favoriteRecipes }));
 
-  const unLikedItem = (itemTarget) => {
+  const unLikedItem = ({ target }) => {
     // Pedir ajuda no 64.
-    console.log(itemTarget);
-
+    target.parentNode.parentNode.remove();
     // const get = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     // const a = get.favoriteRecipes.length > 0
@@ -107,7 +106,7 @@ function FavoriteRecipes() {
             </button>
             <button
               type="button"
-              onClick={ () => unLikedItem(item) }
+              onClick={ (event) => unLikedItem(event) }
             >
               <img
                 src={ blackHeartIcon }
