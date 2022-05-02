@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { meals } from '../new';
 
 function FoodExploreNationalities() {
   const history = useHistory();
@@ -22,6 +21,9 @@ function FoodExploreNationalities() {
     const requestAPI = async () => {
       const results = await fetchAPIReturn(apiNationList);
       setNationalities(results);
+      const apiAllMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const arrayAllMeals = await fetchAPIReturn(apiAllMeals);
+      return setMealsByNation(arrayAllMeals);
     };
     requestAPI();
   }, [setNationalities]);
@@ -29,10 +31,9 @@ function FoodExploreNationalities() {
 
   const requestAPI2 = async (nation) => {
     if (nation === 'All') {
-      return setMealsByNation(meals.meals);
-      //  meals.meals é temporário
-      // Qual é a API que retorna todas as comidas?
-      // requisito 17?
+      const apiAllMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const arrayAllMeals = await fetchAPIReturn(apiAllMeals);
+      return setMealsByNation(arrayAllMeals);
     }
 
     const apiMealsByNation = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nation}`;
@@ -42,7 +43,7 @@ function FoodExploreNationalities() {
 
   return (
     <>
-      <Header />
+      <Header titleName="Explore Nationalities" />
       <h1 data-testid="page-title">Explore Nationalities</h1>
       <select
         data-testid="explore-by-nationality-dropdown"
@@ -70,7 +71,7 @@ function FoodExploreNationalities() {
         </option>
       </select>
       <section>
-        { (mealsByNation[0] ? mealsByNation : meals.meals) // meals.meals é temporário
+        { mealsByNation[0] && mealsByNation
           .slice(0, limit)
           .map((food, index) => (
             <button

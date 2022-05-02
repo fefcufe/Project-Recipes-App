@@ -92,7 +92,6 @@ function FavoriteRecipes() {
               aria-hidden="true" // lint https://stackoverflow.com/a/64858019
             >
               {item.name}
-
             </p>
             <button
               type="button"
@@ -114,10 +113,10 @@ function FavoriteRecipes() {
                 data-testid={ `${index}-horizontal-favorite-btn` }
               />
             </button>
-            { copiedIt && <p>Link copied!</p> }
-            {/* Melhorar lógica do Copy? */}
           </div>
         ))}
+      { copiedIt && <p>Link copied!</p> }
+      {/* Melhorar lógica do Copy? */}
     </>
   );
 }
