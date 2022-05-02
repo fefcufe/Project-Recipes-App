@@ -13,7 +13,9 @@ function RecipesProvider({ children }) {
   const [food, setFood] = useState([]);
   async function getFood(param) {
     const foodResponse = await fetchFood(param);
-    if (foodResponse.meals.length === 1) {
+    if (foodResponse.meals === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if (foodResponse.meals.length === 1) {
       const id = foodResponse.meals[0].idMeal;
       history.push(`/foods/${id}`);
     }
@@ -23,7 +25,9 @@ function RecipesProvider({ children }) {
   const [drink, setDrink] = useState([]);
   async function getDrink(param) {
     const drinkResponse = await fetchDrink(param);
-    if (drinkResponse.drinks.length === 1) {
+    if (drinkResponse.drinks === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if (drinkResponse.drinks.length === 1) {
       const id = drinkResponse.drinks[0].idDrink;
       history.push(`/drinks/${id}`);
     }
