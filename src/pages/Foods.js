@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
-import Cards from '../components/Cards';
+import FoodCards from '../components/FoodCards';
 
 const limite = 12;
 
@@ -24,7 +24,7 @@ function Foods(props) {
       <h1 data-testid="page-title">Foods</h1>
       <div className="cardsContainer">
         {meals && meals.slice(0, limite).map((meal, index) => (
-          <Cards meal={ meal } key={ meal.idMeal } index={ index } />
+          <FoodCards meal={ meal } key={ meal.idMeal } index={ index } />
         ))}
 
       </div>
