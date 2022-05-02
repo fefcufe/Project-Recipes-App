@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import RecipesContext from '../context/RecipesContext';
 
 function FoodsDetails() {
+  const { getDetailsById, recipeDetails } = useContext(RecipesContext);
+  // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
+  useEffect(() => {
+    const currentLocation = (window.location.pathname);
+    getDetailsById(currentLocation);
+  }, [getDetailsById]);
+
   return (
     <>
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
+        src={ recipeDetails.strMealThumb }
       />
       <div>
-        <h1 data-testid="recipe-title"> Title </h1>
+        <h1 data-testid="recipe-title">
+          { recipeDetails.strMeal }
+        </h1>
+
         <button
           type="button"
           data-testid="share-btn"
@@ -22,7 +34,10 @@ function FoodsDetails() {
           favorite icon
         </button>
       </div>
-      <p data-testid="recipe-category"> Recipe category</p>
+      <p data-testid="recipe-category">
+        { `Recipe category:
+        ${recipeDetails.strCategory}` }
+      </p>
 
       <div className="ingredients-container">
         <ul>
@@ -35,8 +50,10 @@ function FoodsDetails() {
       </div>
 
       <div className="instructions-container">
-        <h3> Instructions </h3>
-        <p data-testid="instructions"> Instructions here </p>
+        <h3> Instructions: </h3>
+        <p data-testid="instructions">
+          { recipeDetails.strInstructions }
+        </p>
       </div>
 
       <div className="video-container">

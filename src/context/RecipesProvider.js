@@ -20,6 +20,22 @@ function RecipesProvider({ children }) {
     setDrink(drinkResponse);
   }
 
+  const [recipeDetails, setRecipeDetails] = useState({});
+
+  const getDetailsById = async (currentLocation) => {
+    // retirado de https://stackoverflow.com/questions/30607419/return-only-numbers-from-string
+    const id = currentLocation.replace(/\D/g, '');
+
+    if (currentLocation.includes('foods')) {
+      const foodDetailsUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const foodDetails = await fetchFood(foodDetailsUrl);
+      return setRecipeDetails(foodDetails.meals[0]);
+    }
+    const drinkDetailsUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const drinkDetails = await fetchDrink(drinkDetailsUrl);
+    return setRecipeDetails(drinkDetails.drinks[0]);
+  };
+
   const contextValue = {
     email,
     setEmail,
@@ -33,6 +49,8 @@ function RecipesProvider({ children }) {
     setDrink,
     getFood,
     getDrink,
+    getDetailsById,
+    recipeDetails,
   };
 
   return (

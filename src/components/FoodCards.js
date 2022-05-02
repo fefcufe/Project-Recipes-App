@@ -2,18 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function DrinkCards({ drink, index }) {
-  const { strDrink, strDrinkThumb } = drink;
+function Cards({ meal, index }) {
+/*   const pickMeal = () => {
+
+  } */
+
+  const { strMeal, strMealThumb } = meal;
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <Link
-        key={ drink.idDrink }
-        to={ `/drinks/${drink.idDrink}` }
+        key={ meal.idMeal }
+        to={ `/foods/${meal.idMeal}` }
       >
-        <h2 data-testid={ `${index}-card-name` }>{ strDrink }</h2>
+        <h2 data-testid={ `${index}-card-name` }>{ strMeal }</h2>
         <img
           data-testid={ `${index}-card-img` }
-          src={ strDrinkThumb }
+          src={ strMealThumb }
           alt="Card receita"
           className="CardImg"
         />
@@ -22,10 +26,10 @@ function DrinkCards({ drink, index }) {
   );
 }
 
-DrinkCards.propTypes = {
+Cards.propTypes = {
   meal: PropTypes.node,
-  strDrink: PropTypes.string,
-  strDrinkThumb: PropTypes.string,
+  strMeal: PropTypes.string,
+  strMealThumb: PropTypes.string,
 }.isRequired;
 
-export default DrinkCards;
+export default Cards;
