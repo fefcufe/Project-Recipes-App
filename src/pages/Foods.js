@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
+import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import FoodCards from '../components/FoodCards';
 
