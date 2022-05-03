@@ -3,17 +3,21 @@ import DrinkCards from '../components/DrinkCards';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
+import urlGenerator from './DrinksExploreIngredients';
 
 const limite = 12;
 
 function Drinks(props) {
-  const { drink, getDrink } = useContext(RecipesContext);
+  const { drink } = useContext(RecipesContext);
   const { drinks } = drink;
 
-  useEffect(() => {
-    getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getDrink]);
+  // useEffect(() => {
+  //   getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  useEffect(() => {}, [urlGenerator]);
+
   return (
     <>
       <Header { ...props } />
