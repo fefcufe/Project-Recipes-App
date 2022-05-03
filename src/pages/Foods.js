@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
-import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
@@ -15,7 +14,7 @@ function Foods(props) {
   useEffect(() => {
     getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getFood]);
+  }, []);
 
   const { meals } = food;
 
