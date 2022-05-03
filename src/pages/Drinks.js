@@ -8,13 +8,17 @@ import urlGenerator from './DrinksExploreIngredients';
 const limite = 12;
 
 function Drinks(props) {
-  const { drink } = useContext(RecipesContext);
+  const { drink, getDrink } = useContext(RecipesContext);
   const { drinks } = drink;
 
-  // useEffect(() => {
-  //   getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    console.log('useEffect 1');
+  }, [drink]);
+
+  useEffect(() => {
+    getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {}, [urlGenerator]);
 
