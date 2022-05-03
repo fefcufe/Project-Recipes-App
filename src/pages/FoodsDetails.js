@@ -69,6 +69,7 @@ function FoodsDetails() {
       <button
         data-testid="start-recipe-btn"
         type="button"
+        className="startRecipeBtn"
       >
         Start Recipe
       </button>
