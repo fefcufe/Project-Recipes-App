@@ -16,29 +16,23 @@ function FavoriteRecipes() {
     const limitTimeToRemove = 2000;
     console.log(target);
     setCopiedIt(true);
-    copy(type === 'food'
-      ? `http://localhost:3000/foods/${id}`
-      : `http://localhost:3000/drinks/${id}`);
+    copy(`http://localhost:3000/${type}/${id}`);
     setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
   };
+
   // Apagar essa linha dps
-  localStorage.setItem('favoriteRecipes', JSON.stringify({ favoriteRecipes }));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
   const unLikedItem = ({ target }) => {
-    // Pedir ajuda no 64.
     const parentDiv = target.parentNode.parentNode;
-    parentDiv.remove();
-    let get = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-    if (get.favoriteRecipes) {
-      const updatedData = get.favoriteRecipes.filter(
-        (item) => !parentDiv.innerText.includes(item.name),
-      );
-      get = updatedData;
-      localStorage.removeItem('favoriteRecipes');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedData));
-    }
-    localStorage.removeItem('favoriteRecipes');
+    parentDiv.remove();
+    const get = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const updatedData = get.filter(
+      (item) => !parentDiv.innerText.includes(item.name),
+    );
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify(updatedData));
   };
 
   return (
@@ -68,60 +62,62 @@ function FavoriteRecipes() {
         Drinks
       </button>
 
-      { JSON.parse(localStorage.getItem('favoriteRecipes')).favoriteRecipes
-        .filter((item) => item.type === (itemTypeName === 'all'
-          ? item.type : itemTypeName)) // melhorar lógica?
-        .map((item, index) => (
-          <div
-            key={ index }
-          >
-            <img
+      <div>
+        { JSON.parse(localStorage.getItem('favoriteRecipes'))
+          .filter((item) => item.type === (itemTypeName === 'all'
+            ? item.type : itemTypeName)) // melhorar lógica?
+          .map((item, index) => (
+            <div
               key={ index }
-              width="200"
-              src={ item.image }
-              alt=""
-              data-testid={ `${index}-horizontal-image` }
-              onClick={ () => history.push(`/${item.type}s/${item.id}`) }
-              aria-hidden="true" // lint https://stackoverflow.com/a/64858019
-            />
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { (item.type === 'food')
-                ? `${item.nationality} - ${item.category}`
-                : item.alcoholicOrNot}
-            </p>
-            <p
-              onClick={ () => history.push(`/${item.type}s/${item.id}`) }
-              data-testid={ `${index}-horizontal-name` }
-              aria-hidden="true" // lint https://stackoverflow.com/a/64858019
-            >
-              {item.name}
-            </p>
-            <button
-              type="button"
-              onClick={ (event) => copyIt(item, event) }
             >
               <img
-                src={ shareIcon }
+                key={ index }
+                width="200"
+                src={ item.image }
                 alt=""
-                data-testid={ `${index}-horizontal-share-btn` }
+                data-testid={ `${index}-horizontal-image` }
+                onClick={ () => history.push(`/${item.type}s/${item.id}`) }
+                aria-hidden="true" // lint https://stackoverflow.com/a/64858019
               />
-            </button>
-            <button
-              type="button"
-              onClick={ (event) => unLikedItem(event) }
-            >
-              <img
-                src={ blackHeartIcon }
-                alt=""
-                data-testid={ `${index}-horizontal-favorite-btn` }
-              />
-            </button>
-          </div>
-        ))}
-      { copiedIt && <p>Link copied!</p> }
-      {/* Melhorar lógica do Copy? */}
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { (item.type === 'food')
+                  ? `${item.nationality} - ${item.category}`
+                  : item.alcoholicOrNot}
+              </p>
+              <p
+                onClick={ () => history.push(`/${item.type}s/${item.id}`) }
+                data-testid={ `${index}-horizontal-name` }
+                aria-hidden="true" // lint https://stackoverflow.com/a/64858019
+              >
+                {item.name}
+              </p>
+              <button
+                type="button"
+                onClick={ (event) => copyIt(item, event) }
+              >
+                <img
+                  src={ shareIcon }
+                  alt=""
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+              <button
+                type="button"
+                onClick={ (event) => unLikedItem(event) }
+              >
+                <img
+                  src={ blackHeartIcon }
+                  alt=""
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                />
+              </button>
+            </div>
+          ))}
+        { copiedIt && <p>Link copied!</p> }
+        {/* Melhorar lógica do Copy? */}
+      </div>
     </>
   );
 }
