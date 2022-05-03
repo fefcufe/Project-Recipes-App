@@ -2,13 +2,36 @@ import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/RecipesContext';
 
 function FoodsDetails() {
-  const { getDetailsById, recipeDetails } = useContext(RecipesContext);
+  const { getDetailsById, recipeDetails,
+    getDrink } = useContext(RecipesContext);
+
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
-  }, [getDetailsById]);
+    getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  }, [getDetailsById, getDrink]);
 
+  const renderFoodIngredients = () => {
+    const endIndex = 49;
+    const startIndex = 9;
+    const startMeasurement = 20;
+    const ingredients = Object.values(recipeDetails).slice(startIndex, endIndex);
+    // console.log(ingredients);
+    return ingredients.map((item, index, array) => {
+      if (item !== '' && index < startMeasurement) {
+        return (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            {`${item} - ${array[index + startMeasurement]}`}
+          </li>
+        );
+      }
+      return null;
+    });
+  };
   return (
     <>
       <img
@@ -41,11 +64,7 @@ function FoodsDetails() {
 
       <div className="ingredients-container">
         <ul>
-          <li
-            data-testid="0-ingredient-name-and-measure"
-          >
-            Ingredients
-          </li>
+          { renderFoodIngredients() }
         </ul>
       </div>
 
@@ -55,17 +74,22 @@ function FoodsDetails() {
           { recipeDetails.strInstructions }
         </p>
       </div>
-
+      {/* referencia: https://www.hostinger.com.br/tutoriais/o-que-e-iframe?ppc_campaign=google_performance_max&gclid=Cj0KCQjwpcOTBhCZARIsAEAYLuX3FL3afxfWsxk47QRyzzjW8nAjA8TNj9TH_vGj2R2Y75YgzhiY3V4aAiyhEALw_wcB */}
       <div className="video-container">
-        <video
+        <iframe
+          title="recipe-video"
           data-testid="video"
-          muted
+          src={ recipeDetails.strYoutube }
+          width="680"
+          height="480"
+          allowFullScreen
         />
       </div>
 
       <div className="recommended-container">
         <div data-testid="0-recomendation-card" />
       </div>
+
       <button
         data-testid="start-recipe-btn"
         type="button"

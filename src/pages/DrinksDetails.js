@@ -2,12 +2,34 @@ import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/RecipesContext';
 
 function DrinksDetails() {
-  const { getDetailsById, recipeDetails } = useContext(RecipesContext);
+  const { getDetailsById, recipeDetails, getFood } = useContext(RecipesContext);
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
-  }, [getDetailsById]);
+    getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }, [getDetailsById, recipeDetails, getFood]);
+
+  const renderDrinkIngredients = () => {
+    const endIndex = 47;
+    const startIndex = 17;
+    const startMeasurement = 15;
+    const ingredients = Object.values(recipeDetails).slice(startIndex, endIndex);
+
+    return ingredients.map((item, index, array) => {
+      if (item !== null && index < startMeasurement) {
+        return (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            {`${item} - ${array[index + startMeasurement]}`}
+          </li>
+        );
+      }
+      return null;
+    });
+  };
 
   return (
     <>
@@ -41,11 +63,7 @@ function DrinksDetails() {
 
       <div className="ingredients-container">
         <ul>
-          <li
-            data-testid="0-ingredient-name-and-measure"
-          >
-            Ingredients
-          </li>
+          { renderDrinkIngredients() }
         </ul>
       </div>
 
