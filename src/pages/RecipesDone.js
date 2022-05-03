@@ -23,7 +23,7 @@ function RecipesDone() {
   };
 
   // Apagar essa linha dps
-  localStorage.setItem('doneRecipes', JSON.stringify({ doneRecipes }));
+  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
 
   return (
     <>
@@ -52,7 +52,7 @@ function RecipesDone() {
       >
         Drinks
       </button>
-      { JSON.parse(localStorage.getItem('doneRecipes')).doneRecipes
+      { JSON.parse(localStorage.getItem('doneRecipes'))
         .filter((item) => item.type === (itemTypeName === 'all'
           ? item.type : itemTypeName)) // melhorar lógica?
         .map((item, index) => (
