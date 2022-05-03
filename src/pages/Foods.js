@@ -9,14 +9,14 @@ const limite = 12;
 
 function Foods(props) {
   const { getFood, food } = useContext(RecipesContext);
-  // const { history } = props;
+  const { meals } = food;
 
   useEffect(() => {
-    getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    if (food.length === 0) {
+      getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const { meals } = food;
 
   return (
     <>

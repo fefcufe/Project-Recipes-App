@@ -25,10 +25,9 @@ function DrinksExploreIngredients() {
     requestAPI();
   }, [setIngredients]);
 
-  const urlGenerator = (id) => {
-    const corrigida = id.replace(' ', '_');
-    return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${corrigida}`;
-  };
+  const urlGenerator = (id) => (
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${id}`
+  );
 
   return (
     <>
@@ -43,6 +42,7 @@ function DrinksExploreIngredients() {
             data-testid={ `${index}-ingredient-card` }
             onClick={ () => {
               getDrink(urlGenerator(strIngredient1));
+              console.log(urlGenerator(strIngredient1));
               history.push('/drinks');
             } }
             // precisa do requisito 17
