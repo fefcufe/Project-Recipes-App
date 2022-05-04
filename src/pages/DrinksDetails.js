@@ -2,9 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
+import '../components/carousel.css';
 
 function DrinksDetails() {
-  const { getDetailsById, recipeDetails } = useContext(RecipesContext);
+  const { getDetailsById, recipeDetails,
+    getRecommendation, recommended } = useContext(RecipesContext);
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
   const [copied, setCopied] = useState(false);
@@ -29,7 +31,60 @@ function DrinksDetails() {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage2();
+    getRecommendation('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }, []);
+
+  const renderDrinkIngredients = () => {
+    const endIndex = 47;
+    const startIndex = 17;
+    const startMeasurement = 15;
+    const ingredients = Object.values(recipeDetails)
+      .slice(startIndex, endIndex)
+      .filter((item) => item !== null
+    && !(item.includes('.jpg')));
+
+    return ingredients.map((item, index) => {
+      if (item !== null && index < startMeasurement) {
+        return (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            {`${item} - ${recipeDetails[`strMeasure${index + 1}`]}`}
+          </li>
+        );
+      }
+      return null;
+    });
+  };
+
+  const renderDrinkRecommendations = () => {
+    const limite = 6;
+    const { meals } = recommended;
+    return (meals && meals.slice(0, limite).map((meal, index) => (
+
+      <div
+        data-testid={ `${index}-recomendation-card` }
+        className="recommended-card"
+        key={ index }
+      >
+        <img
+          alt="recommended-img"
+          src={ meal.strMealThumb }
+          width="100px"
+          height="100px"
+        />
+        <p>
+          { meal.strCategory }
+        </p>
+
+        <h3 data-testid={ `${index}-recomendation-title` }>
+          { meal.strMeal }
+        </h3>
+      </div>
+
+    )));
+  };
 
   return (
     <>
@@ -39,10 +94,19 @@ function DrinksDetails() {
         src={ recipeDetails.strDrinkThumb }
       />
       <div>
+        <h3 data-testid="recipe-title">
+          { recipeDetails.strDrink }
+        </h3>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          share icon
+        </button>
+
         <h1 data-testid="recipe-title">
           {recipeDetails.strDrink}
         </h1>
-
         <div>
           { copied && <span>Link copied!</span> }
           <button
@@ -69,11 +133,7 @@ function DrinksDetails() {
 
       <div className="ingredients-container">
         <ul>
-          <li
-            data-testid="0-ingredient-name-and-measure"
-          >
-            Ingredients
-          </li>
+          { renderDrinkIngredients() }
         </ul>
       </div>
 
@@ -85,8 +145,9 @@ function DrinksDetails() {
       </div>
 
       <div className="recommended-container">
-        <div data-testid="0-recomendation-card" />
+        { renderDrinkRecommendations() }
       </div>
+
       <button
         data-testid="start-recipe-btn"
         type="button"

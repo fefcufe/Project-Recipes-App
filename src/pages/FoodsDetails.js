@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import '../components/carousel.css';
+
 import RecipesContext from '../context/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
 
 function FoodsDetails() {
-  const { getDetailsById, recipeDetails } = useContext(RecipesContext);
+  const { getDetailsById, recipeDetails,
+    getRecommendation, recommended } = useContext(RecipesContext);
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
   const [copied, setCopied] = useState(false);
@@ -28,7 +31,56 @@ function FoodsDetails() {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage();
+    getRecommendation('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   }, []);
+
+  const renderFoodIngredients = () => {
+    const endIndex = 49;
+    const startIndex = 9;
+    const startMeasurement = 20;
+    const ingredients = Object.values(recipeDetails).slice(startIndex, endIndex);
+    // console.log(ingredients);
+    return ingredients.map((item, index, array) => {
+      if (item !== '' && index < startMeasurement) {
+        return (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            {`${item} - ${array[index + startMeasurement]}`}
+          </li>
+        );
+      }
+      return null;
+    });
+  };
+
+  const renderFoodRecommendations = () => {
+    const limite = 6;
+    const { drinks } = recommended;
+    return (drinks && drinks.slice(0, limite).map((drink, index) => (
+      <div
+        data-testid={ `${index}-recomendation-card` }
+        className="recommended-card"
+        key={ index }
+      >
+        <img
+          alt="recommended-img"
+          src={ drink.strDrinkThumb }
+          width="100px"
+          height="100px"
+        />
+
+        <p>
+          { drink.strCategory }
+        </p>
+
+        <h3 data-testid={ `${index}-recomendation-title` }>
+          { drink.strDrink }
+        </h3>
+      </div>
+    )));
+  };
 
   return (
     <>
@@ -68,11 +120,7 @@ function FoodsDetails() {
 
       <div className="ingredients-container">
         <ul>
-          <li
-            data-testid="0-ingredient-name-and-measure"
-          >
-            Ingredients
-          </li>
+          { renderFoodIngredients() }
         </ul>
       </div>
 
@@ -82,17 +130,22 @@ function FoodsDetails() {
           {recipeDetails.strInstructions}
         </p>
       </div>
-
+      {/* referencia: https://www.hostinger.com.br/tutoriais/o-que-e-iframe?ppc_campaign=google_performance_max&gclid=Cj0KCQjwpcOTBhCZARIsAEAYLuX3FL3afxfWsxk47QRyzzjW8nAjA8TNj9TH_vGj2R2Y75YgzhiY3V4aAiyhEALw_wcB */}
       <div className="video-container">
-        <video
+        <iframe
+          title="recipe-video"
           data-testid="video"
-          muted
+          src={ recipeDetails.strYoutube }
+          width="680"
+          height="480"
+          allowFullScreen
         />
       </div>
 
       <div className="recommended-container">
-        <div data-testid="0-recomendation-card" />
+        { renderFoodRecommendations() }
       </div>
+
       <button
         data-testid="start-recipe-btn"
         type="button"
