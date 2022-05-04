@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import './App.css';
 import RecipesProvider from './context/RecipesProvider';
 import DrinkProgress from './pages/DrinkProgress';
 import Drinks from './pages/Drinks';
@@ -19,7 +20,6 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 
-// import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
