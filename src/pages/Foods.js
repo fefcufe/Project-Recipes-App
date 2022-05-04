@@ -12,7 +12,7 @@ function Foods(props) {
   const { meals } = food;
 
   useEffect(() => {
-    if (food && meals && food.length === 0) {
+    if (food && food.length === 0) {
       getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

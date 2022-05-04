@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 
 function FoodExploreIngredients() {
-  const { getFood } = useContext(RecipesContext);
+  const { getFood, setFood } = useContext(RecipesContext);
   const history = useHistory();
   const [Ingredients, setIngredients] = useState([]);
   const limit = 12;
@@ -40,8 +40,9 @@ function FoodExploreIngredients() {
             type="button"
             key={ index }
             data-testid={ `${index}-ingredient-card` }
-            onClick={ () => {
-              getFood(urlGenerator(strIngredient));
+            onClick={ async () => {
+              setFood([]);
+              await getFood(urlGenerator(strIngredient));
               history.push('/foods');
             } }
             // precisa do requisito 17
