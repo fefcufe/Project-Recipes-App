@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
+import FoodCards from '../components/FoodCards';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import FoodCards from '../components/FoodCards';
 
 const limite = 12;
 
@@ -12,7 +12,7 @@ function Foods(props) {
   const { meals } = food;
 
   useEffect(() => {
-    if (food.length === 0) {
+    if (food && meals && food.length === 0) {
       getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
