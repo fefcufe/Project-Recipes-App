@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import renderWithRouter from '../src/renderWithRouter';
 import App from './App';
@@ -76,60 +76,60 @@ describe('Testa o App.js', () => {
   });
 
 
-// describe('Testa a Página de Login', () => {
-//       test('Checando testids e redirecionamento', () => {
-//       const { history } = renderWithRouter(<App />);
-//       history.push('/')
+ describe('Testa a Página de Login', () => {
+       test('Checando testids e redirecionamento', () => {
+       const { history } = renderWithRouter(<App />);
+       history.push('/')
     
-//       const email = screen.getByTestId('email-input');
-//       expect(email).toBeInTheDocument();
+       const email = screen.getByTestId('email-input');
+       expect(email).toBeInTheDocument();
 
-//       const password = screen.getByTestId('password-input');
-//       expect(password).toBeInTheDocument();
+       const password = screen.getByTestId('password-input');
+       expect(password).toBeInTheDocument();
 
-//       const LoginBtn = screen.getByTestId('login-submit-btn');
-//       expect(LoginBtn).toBeInTheDocument();
+       const LoginBtn = screen.getByTestId('login-submit-btn');
+       expect(LoginBtn).toBeInTheDocument();
       
-//       userEvent.click(LoginBtn)
-//       expect(history.location.pathname).toBe('/foods')
-//   });
+       userEvent.click(LoginBtn)
+       expect(history.location.pathname).toBe('/foods')
+   });
 
-// });
+ });
 
 
-// describe('Testa o Header', () => {
-//   test('Se contém os botões de profile e Search', () => {
-//     const { history } = renderWithRouter(<App />);
-//     history.push('/foods')
+ describe('Testa o Header', () => {
+   test('Se contém os botões de profile e Search', () => {
+     const { history } = renderWithRouter(<App />);
+     history.push('/foods')
 
-//     const profileBtn = screen.getByTestId('profile-top-btn');
-//     expect(profileBtn).toBeInTheDocument();
+     const profileBtn = screen.getByTestId('profile-top-btn');
+     expect(profileBtn).toBeInTheDocument();
 
-//     const searchBtn = screen.getByTestId('search-top-btn');
-//     expect(searchBtn).toBeInTheDocument();
+     const searchBtn = screen.getByTestId('search-top-btn');
+     expect(searchBtn).toBeInTheDocument();
 
-//     const pageTitle = screen.getByTestId('page-title');
-//     expect(pageTitle).toBeInTheDocument();
+     const pageTitle = screen.getByTestId('page-title');
+     expect(pageTitle).toBeInTheDocument();
 
-//     const pageText = screen.getByText(/Foods/i);
-//     expect(pageText).toBeInTheDocument();
+     const pageText = screen.getByText(/Foods/i);
+     expect(pageText).toBeInTheDocument();
  
-//   });
+   });
 
-//   test('Se o input do search aparece e desaperece ao ser clicado', () => {
-//     const { history } = renderWithRouter(<App />);
-//     history.push('/foods')
+   test('Se o input do search aparece e desaperece ao ser clicado', () => {
+     const { history } = renderWithRouter(<App />);
+     history.push('/foods')
 
-//     const searchBtn = screen.getByTestId('search-top-btn');
-//     expect(searchBtn).toBeInTheDocument();
+     const searchBtn = screen.getByTestId('search-top-btn');
+     expect(searchBtn).toBeInTheDocument();
 
-//     userEvent.click(searchBtn)
-//     const inputSearch = screen.getByTestId('search-input');
-//     expect(inputSearch).toBeInTheDocument();
+     userEvent.click(searchBtn)
+     const inputSearch = screen.getByTestId('search-input');
+     expect(inputSearch).toBeInTheDocument();
 
-//     userEvent.click(searchBtn)   
-//      expect(inputSearch).not.toBeInTheDocument();
+     userEvent.click(searchBtn)   
+      expect(inputSearch).not.toBeInTheDocument();
     
-//   });
+   });
 
-// })
+ })

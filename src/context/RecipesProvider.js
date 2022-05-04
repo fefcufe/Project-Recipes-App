@@ -36,6 +36,16 @@ function RecipesProvider({ children }) {
     return setRecipeDetails(drinkDetails.drinks[0]);
   };
 
+  const [recommended, setRecommendations] = useState([]);
+  async function getRecommendation(param) {
+    if (window.location.pathname.includes('foods')) {
+      const recommendedResponse = await fetchDrink(param);
+      setRecommendations(recommendedResponse);
+    }
+    const recommendedResponse = await fetchFood(param);
+    setRecommendations(recommendedResponse);
+  }
+
   const contextValue = {
     email,
     setEmail,
@@ -51,6 +61,8 @@ function RecipesProvider({ children }) {
     getDrink,
     getDetailsById,
     recipeDetails,
+    recommended,
+    getRecommendation,
   };
 
   return (

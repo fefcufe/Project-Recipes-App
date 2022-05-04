@@ -1,14 +1,16 @@
 import React, { useContext, useEffect } from 'react';
+import { Carousel } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 
 function DrinksDetails() {
-  const { getDetailsById, recipeDetails, getFood } = useContext(RecipesContext);
+  const { getDetailsById, recipeDetails,
+    getRecommendation, recommended } = useContext(RecipesContext);
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
-    getFood('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-  }, [getDetailsById, recipeDetails, getFood]);
+    getRecommendation('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }, [getDetailsById, getRecommendation]);
 
   const renderDrinkIngredients = () => {
     const endIndex = 47;
@@ -32,6 +34,36 @@ function DrinksDetails() {
       }
       return null;
     });
+  };
+
+  const renderDrinkRecommendations = () => {
+    const limite = 6;
+    const { meals } = recommended;
+    return (meals && meals.slice(0, limite).map((meal, index) => (
+      <Carousel width="100vw" className="carousel" key={ index }>
+        <Carousel.Item
+          data-testid={ `${index}-recomendation-card` }
+          className="recommended-card"
+        >
+          <img
+            alt="recommended-img"
+            src={ meal.strMealThumb }
+            width="100px"
+            height="100px"
+          />
+          <Carousel.Caption>
+            <p>
+              { meal.strCategory }
+            </p>
+
+            <h1 data-testid={ `${index}-recomendation-title` }>
+              { meal.strMeal }
+            </h1>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+    )));
   };
 
   return (
@@ -78,8 +110,9 @@ function DrinksDetails() {
       </div>
 
       <div className="recommended-container">
-        <div data-testid="0-recomendation-card" />
+        { renderDrinkRecommendations() }
       </div>
+
       <button
         data-testid="start-recipe-btn"
         type="button"

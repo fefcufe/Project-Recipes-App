@@ -1,16 +1,17 @@
 import React, { useContext, useEffect } from 'react';
+import { Carousel } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 
 function FoodsDetails() {
   const { getDetailsById, recipeDetails,
-    getDrink } = useContext(RecipesContext);
+    getRecommendation, recommended } = useContext(RecipesContext);
 
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
-    getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  }, [getDetailsById, getDrink]);
+    getRecommendation('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  }, [getDetailsById, getRecommendation]);
 
   const renderFoodIngredients = () => {
     const endIndex = 49;
@@ -32,6 +33,37 @@ function FoodsDetails() {
       return null;
     });
   };
+
+  const renderFoodRecommendations = () => {
+    const limite = 6;
+    const { drinks } = recommended;
+    return (drinks && drinks.slice(0, limite).map((drink, index) => (
+      <Carousel width="100vw" className="carousel" key={ index }>
+        <Carousel.Item
+          data-testid={ `${index}-recomendation-card` }
+          className="recommended-card"
+        >
+          <img
+            alt="recommended-img"
+            src={ drink.strDrinkThumb }
+            width="100px"
+            height="100px"
+          />
+          <Carousel.Caption>
+            <p>
+              { drink.strCategory }
+            </p>
+
+            <h1 data-testid={ `${index}-recomendation-title` }>
+              { drink.strDrink }
+            </h1>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+    )));
+  };
+
   return (
     <>
       <img
@@ -87,7 +119,7 @@ function FoodsDetails() {
       </div>
 
       <div className="recommended-container">
-        <div data-testid="0-recomendation-card" />
+        { renderFoodRecommendations() }
       </div>
 
       <button
