@@ -1,23 +1,47 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function FoodProgress() {
   const history = useHistory();
+  const [copiedIt, setCopiedIt] = useState(false);
   const { getDetailsById, recipeDetails } = useContext(RecipesContext);
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
   }, [getDetailsById]);
+
+  const unLikedItem = ({ target }) => {
+    const parentDiv = target.parentNode.parentNode;
+
+    parentDiv.remove();
+    const get = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const updatedData = get.filter(
+      (item) => !parentDiv.innerText.includes(item.name),
+    );
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify(updatedData));
+  };
+
+  const copyIt = (id) => {
+    const limitTimeToRemove = 2000;
+    setCopiedIt(true);
+    copy(`http://localhost:3000/foods/${id}`);
+    setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
+  };
+
   const checkedUpdtate = ({ target }) => {
     if (target.className === 'checked') {
       target.className = 'noChecked';
     }
     target.className = 'checked';
   };
+  console.log(recipeDetails);
   const renderFoodIngredients = () => {
     const endIndex = 47;
     const startIndex = 17;
@@ -68,23 +92,25 @@ function FoodProgress() {
         </h1>
         <button
           type="button"
-          data-testid="share-btn"
+          onClick={ () => copyIt(recipeDetails.idMeal) }
         >
           <img
-            alt="share recipe"
+            data-testid="share-btn"
             src={ shareIcon }
+            alt="share recipe"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={ (e) => unLikedItem(e) }
+        >
+          <img
+            data-testid="favorite-btn"
+            src={ blackHeartIcon }
+            alt="favorite recipe"
           />
         </button>
 
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          <img
-            alt="favorite recipe"
-            src={ blackHeartIcon }
-          />
-        </button>
       </div>
       <p data-testid="recipe-category">
         { `Recipe category:
@@ -111,6 +137,7 @@ function FoodProgress() {
       >
         Finish Recipes
       </button>
+      { copiedIt && <p>Link copied!</p> }
     </>
   );
 }
