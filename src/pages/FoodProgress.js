@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function FoodProgress() {
+  const history = useHistory();
   const { getDetailsById, recipeDetails } = useContext(RecipesContext);
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
@@ -105,6 +107,7 @@ function FoodProgress() {
       <button
         data-testid="finish-recipe-btn"
         type="button"
+        onClick={ () => history.push('/done-recipes') }
       >
         Finish Recipes
       </button>
