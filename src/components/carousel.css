@@ -1,11 +1,11 @@
 .recommended-container {
-display:flex;
-flex-direction: row;
-flex-wrap: nowrap;
-align-self: center;
-width: 180px;
-height:150px;
-background-color: bisque;
-overflow: hidden;
-overflow-x: auto;
+  align-self: center;
+  background-color: bisque;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  height: 150px;
+  overflow: hidden;
+  overflow-x: auto;
+  width: 180px;
 }
