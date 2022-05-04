@@ -1,17 +1,38 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import '../components/carousel.css';
+
 import RecipesContext from '../context/RecipesContext';
+import shareIcon from '../images/shareIcon.svg';
 
 function FoodsDetails() {
   const { getDetailsById, recipeDetails,
     getRecommendation, recommended } = useContext(RecipesContext);
+  const [modifyBottom, setModifyBottom] = useState(false);
+  const history = useHistory();
+  const [copied, setCopied] = useState(false);
+
+  const { id } = useParams();
+
+  const verifyStorage = () => {
+    const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (progressRecipe) {
+      const isProgressMeals = Object.keys(progressRecipe.meals).some((key) => key === id);
+
+      if (isProgressMeals) {
+        setModifyBottom(true);
+      }
+    }
+  };
 
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
+    verifyStorage();
     getRecommendation('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  }, [getDetailsById, getRecommendation]);
+  }, []);
 
   const renderFoodIngredients = () => {
     const endIndex = 49;
@@ -70,25 +91,31 @@ function FoodsDetails() {
       />
       <div>
         <h1 data-testid="recipe-title">
-          { recipeDetails.strMeal }
+          {recipeDetails.strMeal}
         </h1>
 
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          share icon
-        </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          favorite icon
-        </button>
+        <div>
+          { copied && <span>Link copied!</span> }
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
+              setCopied(true);
+            } }
+          >
+            <img src={ shareIcon } alt="compartilhar" />
+          </button>
+
+          <button type="button" data-testid="favorite-btn">
+            Favoritar
+          </button>
+        </div>
+
       </div>
       <p data-testid="recipe-category">
-        { `Recipe category:
-        ${recipeDetails.strCategory}` }
+        {`Recipe category:
+        ${recipeDetails.strCategory}`}
       </p>
 
       <div className="ingredients-container">
@@ -100,7 +127,7 @@ function FoodsDetails() {
       <div className="instructions-container">
         <h3> Instructions: </h3>
         <p data-testid="instructions">
-          { recipeDetails.strInstructions }
+          {recipeDetails.strInstructions}
         </p>
       </div>
       {/* referencia: https://www.hostinger.com.br/tutoriais/o-que-e-iframe?ppc_campaign=google_performance_max&gclid=Cj0KCQjwpcOTBhCZARIsAEAYLuX3FL3afxfWsxk47QRyzzjW8nAjA8TNj9TH_vGj2R2Y75YgzhiY3V4aAiyhEALw_wcB */}
@@ -122,8 +149,10 @@ function FoodsDetails() {
       <button
         data-testid="start-recipe-btn"
         type="button"
+        className="startRecipeBtn"
+        onClick={ () => history.push(`/foods/${id}/in-progress`) }
       >
-        Start Recipe
+        {modifyBottom ? 'Continue Recipe' : 'Start Recipe'}
       </button>
     </>
   );
