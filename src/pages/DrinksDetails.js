@@ -14,16 +14,19 @@ function DrinksDetails() {
     const endIndex = 47;
     const startIndex = 17;
     const startMeasurement = 15;
-    const ingredients = Object.values(recipeDetails).slice(startIndex, endIndex);
+    const ingredients = Object.values(recipeDetails)
+      .slice(startIndex, endIndex)
+      .filter((item) => item !== null
+    && !(item.includes('.jpg')));
 
-    return ingredients.map((item, index, array) => {
+    return ingredients.map((item, index) => {
       if (item !== null && index < startMeasurement) {
         return (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
           >
-            {`${item} - ${array[index + startMeasurement]}`}
+            {`${item} - ${recipeDetails[`strMeasure${index + 1}`]}`}
           </li>
         );
       }
