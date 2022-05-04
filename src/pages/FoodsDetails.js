@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Carousel } from 'react-bootstrap';
+import '../components/carousel.css';
 import RecipesContext from '../context/RecipesContext';
 
 function FoodsDetails() {
@@ -38,29 +38,26 @@ function FoodsDetails() {
     const limite = 6;
     const { drinks } = recommended;
     return (drinks && drinks.slice(0, limite).map((drink, index) => (
-      <Carousel width="100vw" className="carousel" key={ index }>
-        <Carousel.Item
-          data-testid={ `${index}-recomendation-card` }
-          className="recommended-card"
-        >
-          <img
-            alt="recommended-img"
-            src={ drink.strDrinkThumb }
-            width="100px"
-            height="100px"
-          />
-          <Carousel.Caption>
-            <p>
-              { drink.strCategory }
-            </p>
+      <div
+        data-testid={ `${index}-recomendation-card` }
+        className="recommended-card"
+        key={ index }
+      >
+        <img
+          alt="recommended-img"
+          src={ drink.strDrinkThumb }
+          width="100px"
+          height="100px"
+        />
 
-            <h1 data-testid={ `${index}-recomendation-title` }>
-              { drink.strDrink }
-            </h1>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+        <p>
+          { drink.strCategory }
+        </p>
 
+        <h3 data-testid={ `${index}-recomendation-title` }>
+          { drink.strDrink }
+        </h3>
+      </div>
     )));
   };
 

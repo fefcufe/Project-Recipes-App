@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Carousel } from 'react-bootstrap';
+import '../components/carousel.css';
 import RecipesContext from '../context/RecipesContext';
 
 function DrinksDetails() {
@@ -40,28 +40,26 @@ function DrinksDetails() {
     const limite = 6;
     const { meals } = recommended;
     return (meals && meals.slice(0, limite).map((meal, index) => (
-      <Carousel width="100vw" className="carousel" key={ index }>
-        <Carousel.Item
-          data-testid={ `${index}-recomendation-card` }
-          className="recommended-card"
-        >
-          <img
-            alt="recommended-img"
-            src={ meal.strMealThumb }
-            width="100px"
-            height="100px"
-          />
-          <Carousel.Caption>
-            <p>
-              { meal.strCategory }
-            </p>
 
-            <h1 data-testid={ `${index}-recomendation-title` }>
-              { meal.strMeal }
-            </h1>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+      <div
+        data-testid={ `${index}-recomendation-card` }
+        className="recommended-card"
+        key={ index }
+      >
+        <img
+          alt="recommended-img"
+          src={ meal.strMealThumb }
+          width="100px"
+          height="100px"
+        />
+        <p>
+          { meal.strCategory }
+        </p>
+
+        <h3 data-testid={ `${index}-recomendation-title` }>
+          { meal.strMeal }
+        </h3>
+      </div>
 
     )));
   };
@@ -74,9 +72,9 @@ function DrinksDetails() {
         src={ recipeDetails.strDrinkThumb }
       />
       <div>
-        <h1 data-testid="recipe-title">
+        <h3 data-testid="recipe-title">
           { recipeDetails.strDrink }
-        </h1>
+        </h3>
         <button
           type="button"
           data-testid="share-btn"
