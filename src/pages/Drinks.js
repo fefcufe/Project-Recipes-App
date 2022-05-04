@@ -11,9 +11,12 @@ function Drinks(props) {
   const { drinks } = drink;
 
   useEffect(() => {
-    getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    if (drink && drinks && drinks.length === 0) {
+      getDrink('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getDrink]);
+  }, []);
+
   return (
     <>
       <Header { ...props } />

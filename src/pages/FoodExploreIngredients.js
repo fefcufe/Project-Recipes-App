@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
 
 function FoodExploreIngredients() {
+  const { getFood } = useContext(RecipesContext);
   const history = useHistory();
   const [Ingredients, setIngredients] = useState([]);
   const limit = 12;
@@ -23,6 +25,10 @@ function FoodExploreIngredients() {
     requestAPI();
   }, [setIngredients]);
 
+  const urlGenerator = (id) => (
+    `https://www.themealdb.com/api/json/v1/1/filter.php?i=${id}`
+  );
+
   return (
     <>
       <Header />
@@ -34,7 +40,10 @@ function FoodExploreIngredients() {
             type="button"
             key={ index }
             data-testid={ `${index}-ingredient-card` }
-            onClick={ () => history.push('/foods') }
+            onClick={ () => {
+              getFood(urlGenerator(strIngredient));
+              history.push('/foods');
+            } }
             // precisa do requisito 17
           >
             <img

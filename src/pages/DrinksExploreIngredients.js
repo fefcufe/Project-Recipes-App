@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
 
 function DrinksExploreIngredients() {
+  const { getDrink } = useContext(RecipesContext);
   const history = useHistory();
   const [Ingredients, setIngredients] = useState([]);
   const limit = 12;
@@ -23,6 +25,10 @@ function DrinksExploreIngredients() {
     requestAPI();
   }, [setIngredients]);
 
+  const urlGenerator = (id) => (
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${id}`
+  );
+
   return (
     <>
       <Header />
@@ -34,7 +40,11 @@ function DrinksExploreIngredients() {
             type="button"
             key={ index }
             data-testid={ `${index}-ingredient-card` }
-            onClick={ () => history.push('/drinks') }
+            onClick={ () => {
+              getDrink(urlGenerator(strIngredient1));
+              console.log(urlGenerator(strIngredient1));
+              history.push('/drinks');
+            } }
             // precisa do requisito 17
           >
             <img
