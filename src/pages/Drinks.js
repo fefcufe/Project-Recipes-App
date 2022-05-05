@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import DrinkCards from '../components/DrinkCards';
+import DrinkCategories from '../components/DrinkCategories';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
@@ -21,6 +22,7 @@ function Drinks(props) {
     <>
       <Header { ...props } />
       <h1 data-testid="page-title">Drinks</h1>
+      <DrinkCategories />
       <div className="cardsContainer">
         {drinks && drinks.slice(0, limite).map((liquor, index) => (
           <DrinkCards drink={ liquor } key={ liquor.idDrink } index={ index } />
