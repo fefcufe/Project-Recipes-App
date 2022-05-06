@@ -41,7 +41,6 @@ function FoodProgress() {
     }
     target.className = 'checked';
   };
-  console.log(recipeDetails);
   const renderFoodIngredients = () => {
     const endIndex = 47;
     const startIndex = 17;

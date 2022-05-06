@@ -23,7 +23,7 @@ function DrinksExploreIngredients() {
       setIngredients(results);
     };
     requestAPI();
-  }, [setIngredients]);
+  }, []);
 
   const urlGenerator = (id) => (
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${id}`

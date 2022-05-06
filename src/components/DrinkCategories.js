@@ -26,7 +26,6 @@ function DrinkCategories() {
 
   const categoriesItemsFetch = async ({ target }) => {
     setAllDrink(drink);
-    console.log(target.name);
     if (select === false || selectCategory !== target.name) {
       const response = await fetchCategoriesByFood(target.name);
       setDrink(response);
