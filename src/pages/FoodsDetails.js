@@ -4,6 +4,9 @@ import '../components/carousel.css';
 
 import RecipesContext from '../context/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { handleButtonFavorite } from '../utils/handleFavoritesRecipes';
 
 function FoodsDetails() {
   const { getDetailsById, recipeDetails,
@@ -11,6 +14,7 @@ function FoodsDetails() {
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
   const [copied, setCopied] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const { id } = useParams();
 
@@ -26,8 +30,18 @@ function FoodsDetails() {
     }
   };
 
+  const reloadPage = () => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (storage) {
+      const existFavoriteRecipe = storage.some((recipe) => recipe.id === id);
+      setIsFavorite(existFavoriteRecipe);
+    }
+  };
+
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
+    reloadPage();
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage();
@@ -107,9 +121,17 @@ function FoodsDetails() {
             <img src={ shareIcon } alt="compartilhar" />
           </button>
 
-          <button type="button" data-testid="favorite-btn">
-            Favoritar
-          </button>
+          <input
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ () => (
+              handleButtonFavorite(setIsFavorite, isFavorite, recipeDetails)
+            ) }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            /* src={ globalStorage.some(({ idMeal }) => idMeal === id)
+              ? blackHeartIcon : whiteHeartIcon } */
+            alt="not favorite"
+          />
         </div>
 
       </div>

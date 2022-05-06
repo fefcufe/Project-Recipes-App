@@ -3,6 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
 import '../components/carousel.css';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { handleButtonFavoriteDrinks, ReloadPage } from '../utils/handleFavoritesRecipes';
 
 function DrinksDetails() {
   const { getDetailsById, recipeDetails,
@@ -10,6 +13,7 @@ function DrinksDetails() {
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
   const [copied, setCopied] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const { id } = useParams();
 
@@ -28,6 +32,7 @@ function DrinksDetails() {
 
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
+    ReloadPage(id, setIsFavorite);
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage2();
@@ -94,19 +99,10 @@ function DrinksDetails() {
         src={ recipeDetails.strDrinkThumb }
       />
       <div>
-        <h3 data-testid="recipe-title">
-          { recipeDetails.strDrink }
-        </h3>
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          share icon
-        </button>
-
         <h1 data-testid="recipe-title">
           {recipeDetails.strDrink}
         </h1>
+
         <div>
           { copied && <span>Link copied!</span> }
           <button
@@ -120,9 +116,17 @@ function DrinksDetails() {
             <img src={ shareIcon } alt="compartilhar" />
           </button>
 
-          <button type="button" data-testid="favorite-btn">
-            Favoritar
-          </button>
+          <input
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ () => (
+              handleButtonFavoriteDrinks(setIsFavorite, isFavorite, recipeDetails)
+            ) }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            /* src={ globalStorage.some(({ idMeal }) => idMeal === id)
+              ? blackHeartIcon : whiteHeartIcon } */
+            alt="not favorite"
+          />
         </div>
 
       </div>
