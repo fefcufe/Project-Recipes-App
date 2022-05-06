@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import { doneRecipes } from '../new';
+// import { doneRecipes } from '../new';
 
 const copy = require('clipboard-copy');
 
@@ -23,7 +23,7 @@ function RecipesDone() {
   };
 
   // Apagar essa linha dps
-  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
 
   return (
     <>

@@ -118,7 +118,7 @@ function DrinkProgress() {
         </button>
       </div>
       <p data-testid="recipe-category">
-        { `Recipe category:
+        { `Recipe category:<<<<<<< group-16-req-49
         ${recipeDetails.strAlcoholic}` }
       </p>
 
