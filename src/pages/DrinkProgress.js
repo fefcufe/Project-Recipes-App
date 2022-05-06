@@ -36,12 +36,15 @@ function DrinkProgress() {
   };
 
   const checkedUpdtate = ({ target }) => {
-    if (target.className === 'checked') {
-      console.log(target.parentNode.childNodes);
-      target.className = 'noChecked';
-      return;
+    if (target.parentNode.className === 'checked') {
+      target.parentNode.classList.add('noChecked');
+      target.parentNode.classList.remove('checked');
+      target.parentNode.style = 'text-decoration: none';
+    } else {
+      target.parentNode.classList.add('checked');
+      target.parentNode.classList.remove('noChecked');
+      target.parentNode.style = 'text-decoration: line-through';
     }
-    target.className = 'checked';
   };
   const renderDrinkIngredients = () => {
     const endIndex = 47;
