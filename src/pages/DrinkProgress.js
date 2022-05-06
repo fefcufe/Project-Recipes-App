@@ -37,7 +37,6 @@ function DrinkProgress() {
 
   const checkedUpdtate = ({ target }) => {
     if (target.className === 'checked') {
-      console.log(target.parentNode.childNodes);
       target.className = 'noChecked';
       return;
     }

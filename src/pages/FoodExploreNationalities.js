@@ -26,7 +26,7 @@ function FoodExploreNationalities() {
       return setMealsByNation(arrayAllMeals);
     };
     requestAPI();
-  }, [setNationalities]);
+  }, []);
   const limit = 12;
 
   const requestAPI2 = async (nation) => {
