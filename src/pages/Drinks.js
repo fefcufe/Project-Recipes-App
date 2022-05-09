@@ -20,8 +20,8 @@ function Drinks(props) {
 
   return (
     <>
-      <Header { ...props } />
-      <h1 data-testid="page-title">Drinks</h1>
+      <Header { ...props } title="Drinks" />
+      {/* <h1 data-testid="page-title">Drinks</h1> */}
       <DrinkCategories />
       <div className="cardsContainer">
         {drinks && drinks.slice(0, limite).map((liquor, index) => (

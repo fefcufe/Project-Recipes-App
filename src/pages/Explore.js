@@ -6,8 +6,8 @@ import Header from '../components/Header';
 function Explore({ history }) {
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Explore</h1>
+      <Header title="Explore" />
+      {/* <h1 data-testid="page-title">Explore</h1> */}
       <button
         data-testid="explore-foods"
         type="button"

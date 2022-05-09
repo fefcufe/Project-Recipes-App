@@ -16,20 +16,19 @@ function RecipesDone() {
     const limitTimeToRemove = 2000;
     console.log(target);
     setCopiedIt(true);
-    copy(type === 'food'
-      ? `http://localhost:3000/foods/${id}`
-      : `http://localhost:3000/drinks/${id}`);
+    copy(`http://localhost:3000/${type}/${id}`);
     setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
   };
 
   // Apagar essa linha dps
   // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // console.log(doneRecipes);
 
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Done Recipes</h1>
-
+      <Header title="Done Recipes" />
+      {/* <h1 data-testid="page-title">Done Recipes</h1> */}
       {/* Talvez criar um componente */}
       <button
         type="button"
@@ -52,7 +51,7 @@ function RecipesDone() {
       >
         Drinks
       </button>
-      { JSON.parse(localStorage.getItem('doneRecipes'))
+      { doneRecipes !== null && doneRecipes
         .filter((item) => item.type === (itemTypeName === 'all'
           ? item.type : itemTypeName)) // melhorar lógica?
         .map((item, index) => (

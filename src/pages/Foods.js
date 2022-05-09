@@ -21,8 +21,8 @@ function Foods(props) {
 
   return (
     <>
-      <Header { ...props } />
-      <h1 data-testid="page-title">Foods</h1>
+      <Header { ...props } title="Foods" />
+      {/* <h1 data-testid="page-title">Foods</h1> */}
       <FoodCategories />
       <div className="cardsContainer">
         {meals && meals.slice(0, limite).map((meal, index) => (

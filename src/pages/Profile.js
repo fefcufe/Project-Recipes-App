@@ -10,8 +10,8 @@ function Profile({ history }) {
   };
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Profile</h1>
+      <Header title="Profile" />
+      {/* <h1 data-testid="page-title">Profile</h1> */}
       <div>
         <p data-testid="profile-email">
           {localStorage.getItem('user')}

@@ -31,8 +31,8 @@ function DrinksExploreIngredients() {
 
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Explore Ingredients</h1>
+      <Header title="Explore Ingredients" />
+      {/* <h1 data-testid="page-title">Explore Ingredients</h1> */}
       { Ingredients[0] && Ingredients
         .slice(0, limit)
         .map(({ strIngredient1 }, index) => (
