@@ -21,8 +21,8 @@ function FoodsExplore({ history }) {
   }, []);
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Explore Foods</h1>
+      <Header title="Explore Foods" />
+      {/* <h1 data-testid="page-title">Explore Foods</h1> */}
       <button
         type="button"
         data-testid="explore-by-ingredient"

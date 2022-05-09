@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header() {
+function Header({ title }) {
   const history = useHistory();
 
   const [showBar, setShowBar] = useState(false);
@@ -24,7 +24,7 @@ function Header() {
             data-testid="profile-top-btn"
           />
         </button>
-        {/* <h1 data-testid="page-title">`Este é o titulo  strMeal`</h1> */}
+        <h1 data-testid="page-title">{ title }</h1>
         { (history.location.pathname && pathNames
           .some((path) => history.location.pathname === path))
         && (

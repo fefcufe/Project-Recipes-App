@@ -43,8 +43,8 @@ function FoodExploreNationalities() {
 
   return (
     <>
-      <Header titleName="Explore Nationalities" />
-      <h1 data-testid="page-title">Explore Nationalities</h1>
+      <Header title="Explore Nationalities" />
+      {/* <h1 data-testid="page-title">Explore Nationalities</h1> */}
       <select
         data-testid="explore-by-nationality-dropdown"
         onClick={ (e) => requestAPI2(e.target.value) }

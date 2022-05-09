@@ -27,9 +27,8 @@ function RecipesDone() {
 
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Done Recipes</h1>
-
+      <Header title="Done Recipes" />
+      {/* <h1 data-testid="page-title">Done Recipes</h1> */}
       {/* Talvez criar um componente */}
       <button
         type="button"

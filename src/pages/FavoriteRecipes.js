@@ -37,8 +37,8 @@ function FavoriteRecipes() {
 
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Favorite Recipes</h1>
+      <Header title="Favorite Recipes" />
+      {/* <h1 data-testid="page-title">Favorite Recipes</h1> */}
       {/* Talvez criar um componente */}
       <button
         type="button"
