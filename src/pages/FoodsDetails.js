@@ -1,18 +1,32 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import '../components/carousel.css';
-
 import RecipesContext from '../context/RecipesContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { handleButtonFavorite } from '../utils/handleFavoritesRecipes';
+
+const urlImage = (isFavorite) => {
+  if (isFavorite) {
+    return blackHeartIcon;
+  }
+  return whiteHeartIcon;
+};
+
+const valueBtn = (modifyBottom) => {
+  if (modifyBottom) {
+    return 'Continue Recipe';
+  }
+  return 'Start Recipe';
+};
 
 function FoodsDetails() {
   const { getDetailsById, recipeDetails,
     getRecommendation, recommended } = useContext(RecipesContext);
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
+  const [shouldShowBtn, setShouldShowBtn] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -39,12 +53,22 @@ function FoodsDetails() {
     }
   };
 
+  const showBtn = () => {
+    const isDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+    if (isDoneRecipes) {
+      const isDoneRecipesResult = isDoneRecipes.some((key) => key.id === id);
+      setShouldShowBtn(isDoneRecipesResult);
+    }
+  };
+
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     reloadPage();
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage();
+    showBtn();
     getRecommendation('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   }, []);
 
@@ -127,7 +151,7 @@ function FoodsDetails() {
             onClick={ () => (
               handleButtonFavorite(setIsFavorite, isFavorite, recipeDetails)
             ) }
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            src={ urlImage(isFavorite) }
             /* src={ globalStorage.some(({ idMeal }) => idMeal === id)
               ? blackHeartIcon : whiteHeartIcon } */
             alt="not favorite"
@@ -168,14 +192,15 @@ function FoodsDetails() {
         { renderFoodRecommendations() }
       </div>
 
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="startRecipeBtn"
-        onClick={ () => history.push(`/foods/${id}/in-progress`) }
-      >
-        {modifyBottom ? 'Continue Recipe' : 'Start Recipe'}
-      </button>
+      { !shouldShowBtn && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="startRecipeBtn"
+          onClick={ () => history.push(`/foods/${id}/in-progress`) }
+        >
+          {valueBtn(modifyBottom)}
+        </button>) }
     </>
   );
 }
