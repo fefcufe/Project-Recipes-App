@@ -16,7 +16,7 @@ function RecipesDone() {
     const limitTimeToRemove = 2000;
     console.log(target);
     setCopiedIt(true);
-    copy(`http://localhost:3000/${type}s/${id}`);
+    copy(`http://localhost:3000/${type}/${id}`);
     setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
   };
 
