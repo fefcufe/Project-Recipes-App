@@ -1,20 +1,34 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import '../components/carousel.css';
-
 import RecipesContext from '../context/RecipesContext';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { handleButtonFavorite } from '../utils/handleFavoritesRecipes';
+
+const urlImage = (isFavorite) => {
+  if (isFavorite) {
+    return blackHeartIcon;
+  }
+  return whiteHeartIcon;
+};
+
+const valueBtn = (modifyBottom) => {
+  if (modifyBottom) {
+    return 'Continue Recipe';
+  }
+  return 'Start Recipe';
+};
 
 function FoodsDetails() {
   const { getDetailsById, recipeDetails,
     getRecommendation, recommended } = useContext(RecipesContext);
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
+  const [doneRecipe, setDone] = useState(false);
 
   const { id } = useParams();
 
@@ -39,12 +53,23 @@ function FoodsDetails() {
     }
   };
 
+  const showBtn = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+    if (doneRecipes) {
+      const existDoneRecipes = doneRecipes.some((recipe) => recipe.id === id);
+      setDone(existDoneRecipes);
+    }
+  };
+
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     reloadPage();
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage();
+    showBtn();
+    console.log('Done é:', doneRecipe);
     getRecommendation('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   }, []);
 
@@ -109,13 +134,15 @@ function FoodsDetails() {
         </h1>
 
         <div>
-          { copied && <span>Link copied!</span> }
+          <span>{ copied }</span>
           <button
             type="button"
             data-testid="share-btn"
             onClick={ () => {
+              const limit = 1200;
               navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
-              setCopied(true);
+              setCopied('Link copied!');
+              setTimeout(() => { setCopied(''); }, limit);
             } }
           >
             <img src={ shareIcon } alt="compartilhar" />
@@ -127,7 +154,7 @@ function FoodsDetails() {
             onClick={ () => (
               handleButtonFavorite(setIsFavorite, isFavorite, recipeDetails)
             ) }
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            src={ urlImage(isFavorite) }
             /* src={ globalStorage.some(({ idMeal }) => idMeal === id)
               ? blackHeartIcon : whiteHeartIcon } */
             alt="not favorite"
@@ -158,8 +185,8 @@ function FoodsDetails() {
           title="recipe-video"
           data-testid="video"
           src={ recipeDetails.strYoutube }
-          width="680"
-          height="480"
+          width="480"
+          height="380"
           allowFullScreen
         />
       </div>
@@ -168,14 +195,15 @@ function FoodsDetails() {
         { renderFoodRecommendations() }
       </div>
 
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="startRecipeBtn"
-        onClick={ () => history.push(`/foods/${id}/in-progress`) }
-      >
-        {modifyBottom ? 'Continue Recipe' : 'Start Recipe'}
-      </button>
+      { !doneRecipe && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="startRecipeBtn"
+          onClick={ () => history.push(`/foods/${id}/in-progress`) }
+        >
+          { valueBtn(modifyBottom) }
+        </button>) }
     </>
   );
 }
