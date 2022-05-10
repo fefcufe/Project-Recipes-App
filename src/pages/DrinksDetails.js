@@ -46,9 +46,9 @@ function DrinksDetails() {
   };
 
   const showBtn = () => {
-    const isDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const isDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
-    if (isDoneRecipes) {
+    if (isDoneRecipes.length > 0) {
       const isDoneRecipesResult = isDoneRecipes.some((key) => key.id === id);
       setShouldShowBtn(isDoneRecipesResult);
     }
