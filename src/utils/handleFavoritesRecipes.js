@@ -24,7 +24,7 @@ export const handleButtonFavorite = (setIsFavorite, isFavorite, newRecipe) => {
   }
 };
 
-export const btnFavoriteDrinks = (setIsFavorite, isFavorite, newRecipe) => {
+export const handleButtonFavoriteDrinks = (setIsFavorite, isFavorite, newRecipe) => {
   const currentFavorites = !isFavorite;
   setIsFavorite(currentFavorites);
 

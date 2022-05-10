@@ -1,34 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import '../components/carousel.css';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import '../components/carousel.css';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { btnFavoriteDrinks, ReloadPage } from '../utils/handleFavoritesRecipes';
-
-const urlImage = (isFavorite) => {
-  if (isFavorite) {
-    return blackHeartIcon;
-  }
-  return whiteHeartIcon;
-};
-
-const valueBtn = (modifyBottom) => {
-  if (modifyBottom) {
-    return 'Continue Recipe';
-  }
-  return 'Start Recipe';
-};
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { handleButtonFavoriteDrinks, ReloadPage } from '../utils/handleFavoritesRecipes';
 
 function DrinksDetails() {
   const { getDetailsById, recipeDetails,
     getRecommendation, recommended } = useContext(RecipesContext);
   const [modifyBottom, setModifyBottom] = useState(false);
   const history = useHistory();
-  const [copied, setCopied] = useState('');
+  const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [doneRecipe, setDone] = useState(false);
 
   const { id } = useParams();
 
@@ -45,23 +30,12 @@ function DrinksDetails() {
     }
   };
 
-  const showBtn = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-    if (doneRecipes) {
-      const existDoneRecipes = doneRecipes.some((recipe) => recipe.id === id);
-      setDone(existDoneRecipes);
-    }
-  };
-
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
     ReloadPage(id, setIsFavorite);
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
     verifyStorage2();
-    showBtn();
-    console.log(doneRecipe);
     getRecommendation('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }, []);
 
@@ -130,15 +104,13 @@ function DrinksDetails() {
         </h1>
 
         <div>
-          <span>{ copied }</span>
+          { copied && <span>Link copied!</span> }
           <button
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              const limit = 1200;
               navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
-              setCopied('Link copied!');
-              setTimeout(() => { setCopied(''); }, limit);
+              setCopied(true);
             } }
           >
             <img src={ shareIcon } alt="compartilhar" />
@@ -148,9 +120,9 @@ function DrinksDetails() {
             type="image"
             data-testid="favorite-btn"
             onClick={ () => (
-              btnFavoriteDrinks(setIsFavorite, isFavorite, recipeDetails)
+              handleButtonFavoriteDrinks(setIsFavorite, isFavorite, recipeDetails)
             ) }
-            src={ urlImage(isFavorite) }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
             /* src={ globalStorage.some(({ idMeal }) => idMeal === id)
               ? blackHeartIcon : whiteHeartIcon } */
             alt="not favorite"
@@ -180,15 +152,15 @@ function DrinksDetails() {
         { renderDrinkRecommendations() }
       </div>
 
-      { !doneRecipe && (
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="startRecipeBtn"
-          onClick={ () => history.push(`/drinks/${id}/in-progress`) }
-        >
-          { valueBtn(modifyBottom) }
-        </button>) }
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="startRecipeBtn"
+        onClick={ () => history.push(`/drinks/${id}/in-progress`) }
+      >
+        { modifyBottom ? 'Continue Recipe' : 'Start Recipe'}
+      </button>
+
     </>
   );
 }
