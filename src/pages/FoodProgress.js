@@ -1,37 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { handleButtonFavorite } from '../utils/handleFavoritesRecipes';
 
 const copy = require('clipboard-copy');
 
+const urlImage = (isFavorite) => {
+  if (isFavorite) {
+    return blackHeartIcon;
+  }
+  return whiteHeartIcon;
+};
+
 function FoodProgress() {
   const history = useHistory();
+  const [isAllChecked, setIsAllChecked] = useState(true);
   const [copiedIt, setCopiedIt] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { getDetailsById, recipeDetails } = useContext(RecipesContext);
-  // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
-  useEffect(() => {
-    const currentLocation = (window.location.pathname);
-    getDetailsById(currentLocation);
-  }, [getDetailsById]);
 
-  const unLikedItem = ({ target }) => {
-    const parentDiv = target.parentNode.parentNode;
+  const { id } = useParams();
 
-    parentDiv.remove();
-    const get = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const updatedData = get.filter(
-      (item) => !parentDiv.innerText.includes(item.name),
-    );
-    localStorage.setItem('favoriteRecipes',
-      JSON.stringify(updatedData));
+  const reloadPage = () => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (storage) {
+      const existFavoriteRecipe = storage.some((recipe) => recipe.id === id);
+      setIsFavorite(existFavoriteRecipe);
+    }
   };
 
-  const copyIt = (id) => {
+  // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
+  useEffect(() => {
+    reloadPage();
+    const currentLocation = (window.location.pathname);
+    getDetailsById(currentLocation);
+  }, []);
+
+  const copyIt = (idMeal) => {
     const limitTimeToRemove = 2000;
     setCopiedIt(true);
-    copy(`http://localhost:3000/foods/${id}`);
+    copy(`http://localhost:3000/foods/${idMeal}`);
     setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
   };
 
@@ -44,6 +56,8 @@ function FoodProgress() {
       target.parentNode.classList.add('checked');
       target.parentNode.classList.remove('noChecked');
       target.parentNode.style = 'text-decoration: line-through';
+      setIsAllChecked(target.parentNode.parentNode.parentNode.innerHTML
+        .includes('noChecked'));
     }
   };
 
@@ -107,11 +121,13 @@ function FoodProgress() {
         </button>
         <button
           type="button"
-          onClick={ (e) => unLikedItem(e) }
+          onClick={ () => {
+            handleButtonFavorite(setIsFavorite, isFavorite, recipeDetails);
+          } }
         >
           <img
             data-testid="favorite-btn"
-            src={ blackHeartIcon }
+            src={ urlImage(isFavorite) }
             alt="favorite recipe"
           />
         </button>
@@ -139,6 +155,7 @@ function FoodProgress() {
         data-testid="finish-recipe-btn"
         type="button"
         onClick={ () => history.push('/done-recipes') }
+        disabled={ isAllChecked }
       >
         Finish Recipes
       </button>
