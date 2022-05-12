@@ -1,37 +1,38 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { handleButtonFavoriteDrinks, ReloadPage } from '../utils/handleFavoritesRecipes';
 
 const copy = require('clipboard-copy');
 
+const urlImage = (isFavorite) => {
+  if (isFavorite) {
+    return blackHeartIcon;
+  }
+  return whiteHeartIcon;
+};
+
 function DrinkProgress() {
+  const { id } = useParams();
   const history = useHistory();
   const [copiedIt, setCopiedIt] = useState(false);
+  const [isAllChecked, setIsAllChecked] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { getDetailsById, recipeDetails } = useContext(RecipesContext);
   // retirado de https://stackoverflow.com/questions/35583334/react-router-get-full-current-path-name
   useEffect(() => {
+    ReloadPage(id, setIsFavorite);
     const currentLocation = (window.location.pathname);
     getDetailsById(currentLocation);
-  }, [getDetailsById]);
+  }, []);
 
-  const unLikedItem = ({ target }) => {
-    const parentDiv = target.parentNode.parentNode;
-
-    parentDiv.remove();
-    const get = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const updatedData = get.filter(
-      (item) => !parentDiv.innerText.includes(item.name),
-    );
-    localStorage.setItem('favoriteRecipes',
-      JSON.stringify(updatedData));
-  };
-
-  const copyIt = (id) => {
+  const copyIt = (idDrink) => {
     const limitTimeToRemove = 2000;
     setCopiedIt(true);
-    copy(`http://localhost:3000/drinks/${id}`);
+    copy(`http://localhost:3000/drinks/${idDrink}`);
     setTimeout(() => { setCopiedIt(false); }, limitTimeToRemove);
   };
 
@@ -44,6 +45,8 @@ function DrinkProgress() {
       target.parentNode.classList.add('checked');
       target.parentNode.classList.remove('noChecked');
       target.parentNode.style = 'text-decoration: line-through';
+      setIsAllChecked(target.parentNode.parentNode.parentNode.innerHTML
+        .includes('noChecked'));
     }
   };
   const renderDrinkIngredients = () => {
@@ -108,17 +111,19 @@ function DrinkProgress() {
         </button>
         <button
           type="button"
-          onClick={ (e) => unLikedItem(e) }
+          onClick={ () => (
+            handleButtonFavoriteDrinks(setIsFavorite, isFavorite, recipeDetails)
+          ) }
         >
           <img
             data-testid="favorite-btn"
-            src={ blackHeartIcon }
+            src={ urlImage(isFavorite) }
             alt="favorite recipe"
           />
         </button>
       </div>
       <p data-testid="recipe-category">
-        { `Recipe category:<<<<<<< group-16-req-49
+        { `Recipe category:
         ${recipeDetails.strAlcoholic}` }
       </p>
 
@@ -139,6 +144,7 @@ function DrinkProgress() {
         data-testid="finish-recipe-btn"
         type="button"
         onClick={ () => history.push('/done-recipes') }
+        disabled={ isAllChecked }
       >
         Finish Recipes
       </button>
