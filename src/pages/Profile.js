@@ -39,9 +39,9 @@ function Profile({ history }) {
         </button>
         <br />
         <br />
-        <Footer />
       </div>
 
+      <Footer />
     </>
   );
 }

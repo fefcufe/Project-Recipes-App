@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 function DrinkCards({ drink, index }) {
   const { strDrink, strDrinkThumb } = drink;
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <button
+      type="button"
+      className="bg-amber-200 w-36 rounded-lg ml-7 mb-2"
+      data-testid={ `${index}-recipe-card` }
+    >
       <Link
         key={ drink.idDrink }
         to={ `/drinks/${drink.idDrink}` }
@@ -15,10 +19,10 @@ function DrinkCards({ drink, index }) {
           data-testid={ `${index}-card-img` }
           src={ strDrinkThumb }
           alt="Card receita"
-          className="CardImg"
+          className="rounded-lg box-border h-32 w-32 border-4 absolute-inset-0 ml-2 mb-4"
         />
       </Link>
-    </div>
+    </button>
   );
 }
 

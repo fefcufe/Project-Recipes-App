@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 function Explore({ history }) {
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Explore" />
       {/* <h1 data-testid="page-title">Explore</h1> */}
       <button
@@ -23,7 +23,7 @@ function Explore({ history }) {
         Explore Drinks
       </button>
       <Footer />
-    </>
+    </body>
   );
 }
 //

@@ -20,18 +20,18 @@ function Foods(props) {
   }, []);
 
   return (
-    <>
+    <div className="h-max bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header { ...props } title="Foods" />
       {/* <h1 data-testid="page-title">Foods</h1> */}
       <FoodCategories />
-      <div className="cardsContainer">
+      <div>
         {meals && meals.slice(0, limite).map((meal, index) => (
           <FoodCards meal={ meal } key={ meal.idMeal } index={ index } />
         ))}
 
       </div>
       <Footer />
-    </>
+    </div>
 
   );
 }

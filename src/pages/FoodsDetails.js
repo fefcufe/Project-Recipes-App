@@ -98,15 +98,15 @@ function FoodsDetails() {
     const { drinks } = recommended;
     return (drinks && drinks.slice(0, limite).map((drink, index) => (
       <div
+        className="bg-amber-200 w-36 rounded-lg ml-7 mb-2"
         data-testid={ `${index}-recomendation-card` }
-        className="recommended-card"
         key={ index }
       >
         <img
           alt="recommended-img"
           src={ drink.strDrinkThumb }
-          width="100px"
-          height="100px"
+          className="rounded-lg box-border h-12 w-12 border-4 ml-2 mb-2"
+
         />
 
         <p>
@@ -121,13 +121,16 @@ function FoodsDetails() {
   };
 
   return (
-    <>
+    <div className=" bottom-0 h-max bg-gradient-to-b from-cyan-200 to-purple-400">
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
         src={ recipeDetails.strMealThumb }
       />
-      <div>
+      <div
+        className="p-2 mb-0 space-y-4 rounded-lg shadow-2xl
+          bg-gradient-to-b"
+      >
         <h1 data-testid="recipe-title">
           {recipeDetails.strMeal}
         </h1>
@@ -159,18 +162,20 @@ function FoodsDetails() {
         </div>
 
       </div>
-      <p data-testid="recipe-category">
-        {`Recipe category:
-        ${recipeDetails.strCategory}`}
-      </p>
 
-      <div className="ingredients-container">
+      <div
+        className="p-4 mt-4 mb-4 ml-4 mr-40
+        rounded-lg shadow-2xl bg-amber-200"
+      >
         <ul>
           { renderFoodIngredients() }
         </ul>
       </div>
 
-      <div className="instructions-container">
+      <div
+        className="p-2 m-5 space-y-4 rounded-lg shadow-2xl
+        bg-gradient-to-b from-amber-200"
+      >
         <h3> Instructions: </h3>
         <p data-testid="instructions">
           {recipeDetails.strInstructions}
@@ -201,7 +206,7 @@ function FoodsDetails() {
         >
           {valueBtn(modifyBottom)}
         </button>) }
-    </>
+    </div>
   );
 }
 

@@ -99,15 +99,18 @@ function FoodProgress() {
   };
 
   return (
-    <>
+    <div className=" bottom-0 h-max bg-gradient-to-b from-cyan-200 to-purple-400">
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
-        src={ recipeDetails.strFoodThumb }
+        src={ recipeDetails.strMealThumb }
       />
-      <div>
+      <div
+        className="p-4 m-3 space-y-4 rounded-lg shadow-2xl
+          bg-gradient-to-b to-amber-200"
+      >
         <h1 data-testid="recipe-title">
-          { recipeDetails.strFood }
+          { recipeDetails.strMeal }
         </h1>
         <button
           type="button"
@@ -138,13 +141,19 @@ function FoodProgress() {
         ${recipeDetails.strCategory}` }
       </p>
 
-      <div className="ingredients-container">
+      <div
+        className="p-4 mt-4 mb-4 ml-4 mr-40
+        rounded-lg shadow-2xl bg-amber-200"
+      >
         <ul>
           { renderFoodIngredients() }
         </ul>
       </div>
 
-      <div className="instructions-container">
+      <div
+        className="p-4 m-5 space-y-4 rounded-lg shadow-2xl
+        bg-gradient-to-b from-amber-200"
+      >
         <h3> Instructions: </h3>
         <p data-testid="instructions">
           { recipeDetails.strInstructions }
@@ -160,7 +169,7 @@ function FoodProgress() {
         Finish Recipes
       </button>
       { copiedIt && <p>Link copied!</p> }
-    </>
+    </div>
   );
 }
 
