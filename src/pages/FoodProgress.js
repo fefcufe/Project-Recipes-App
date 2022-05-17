@@ -99,7 +99,7 @@ function FoodProgress() {
   };
 
   return (
-    <div className=" bottom-0 h-max bg-gradient-to-b from-cyan-200 to-purple-400">
+    <div className=" bottom-0 h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
@@ -109,34 +109,44 @@ function FoodProgress() {
         className="p-4 m-3 space-y-4 rounded-lg shadow-2xl
           bg-gradient-to-b to-amber-200"
       >
-        <h1 data-testid="recipe-title">
+        <h1
+          className="sm:text-left text-center text-lg text-black font-semibold"
+          data-testid="recipe-title"
+        >
           { recipeDetails.strMeal }
         </h1>
-        <button
-          type="button"
-          onClick={ () => copyIt(recipeDetails.idMeal) }
+        <div
+          className="space-x-7 ml-2"
         >
-          <img
-            data-testid="share-btn"
-            src={ shareIcon }
-            alt="share recipe"
-          />
-        </button>
-        <button
-          type="button"
-          onClick={ () => {
-            handleButtonFavorite(setIsFavorite, isFavorite, recipeDetails);
-          } }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ urlImage(isFavorite) }
-            alt="favorite recipe"
-          />
-        </button>
+          <button
+            type="button"
+            onClick={ () => copyIt(recipeDetails.idMeal) }
+          >
+            <img
+              data-testid="share-btn"
+              src={ shareIcon }
+              alt="share recipe"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={ () => {
+              handleButtonFavorite(setIsFavorite, isFavorite, recipeDetails);
+            } }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ urlImage(isFavorite) }
+              alt="favorite recipe"
+            />
+          </button>
+        </div>
 
       </div>
-      <p data-testid="recipe-category">
+      <p
+        className="sm:text-left text-center text-lg text-black font-semibold"
+        data-testid="recipe-category"
+      >
         { `Recipe category:
         ${recipeDetails.strCategory}` }
       </p>
@@ -162,11 +172,13 @@ function FoodProgress() {
 
       <button
         data-testid="finish-recipe-btn"
+        className="block w-full px-5 py-3 text-sm font-medium
+         text-white bg-cyan-400 rounded-full"
         type="button"
         onClick={ () => history.push('/done-recipes') }
         disabled={ isAllChecked }
       >
-        Finish Recipes
+        Finish Recipe
       </button>
       { copiedIt && <p>Link copied!</p> }
     </div>

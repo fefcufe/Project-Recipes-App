@@ -121,21 +121,26 @@ function FoodsDetails() {
   };
 
   return (
-    <div className=" bottom-0 h-max bg-gradient-to-b from-cyan-200 to-purple-400">
+    <div className=" bottom-0 h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
         src={ recipeDetails.strMealThumb }
       />
       <div
-        className="p-2 mb-0 space-y-4 rounded-lg shadow-2xl
-          bg-gradient-to-b"
+        className="p-2 mb-5 block-right shadow-2xl
+          bg-gradient-to-b block mx-auto h-20 rounded-full sm:mx-0 sm:shrink-0 "
       >
-        <h1 data-testid="recipe-title">
+        <h1
+          className="sm:text-left text-center text-lg text-black font-semibold"
+          data-testid="recipe-title"
+        >
           {recipeDetails.strMeal}
         </h1>
 
-        <div>
+        <div
+          className="space-x-7 ml-7 "
+        >
           { copied && <span>Link copied!</span> }
           <button
             type="button"
@@ -173,7 +178,7 @@ function FoodsDetails() {
       </div>
 
       <div
-        className="p-2 m-5 space-y-4 rounded-lg shadow-2xl
+        className="p-5 m-4 space-y-4 rounded-lg shadow-2xl
         bg-gradient-to-b from-amber-200"
       >
         <h3> Instructions: </h3>
@@ -201,7 +206,8 @@ function FoodsDetails() {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          className="startRecipeBtn"
+          className="block w-full px-5 py-3 text-sm font-medium
+         text-white bg-purple-500 rounded-full"
           onClick={ () => history.push(`/foods/${id}/in-progress`) }
         >
           {valueBtn(modifyBottom)}

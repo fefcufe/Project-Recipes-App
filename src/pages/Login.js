@@ -26,7 +26,7 @@ function Login({ history }) {
   }, [email, password, setButton]);
 
   return (
-    <div className="h-max bg-gradient-to-b from-cyan-200 to-purple-600">
+    <div className="h-screen bg-gradient-to-b from-cyan-200 to-purple-600">
       <div className="p-2 mb-0 space-y-4 rounded-lg shadow-2xl">
         <label htmlFor="email-input" className="text-sm font-medium">
           <input
@@ -54,7 +54,7 @@ function Login({ history }) {
         </div>
         <button
           className="block w-full px-5 py-3 text-sm font-medium
-         text-white bg-indigo-600 rounded-lg"
+         text-white bg-purple-500 rounded-full"
           type="button"
           data-testid="login-submit-btn"
           disabled={ isButtonDisabled }
@@ -64,6 +64,14 @@ function Login({ history }) {
         </button>
       </div>
       <img src={ coocking } alt="" />
+      <footer
+        className="bg-purple-70"
+      >
+        <br />
+        <br />
+        <br />
+        <br />
+      </footer>
     </div>
   );
 }

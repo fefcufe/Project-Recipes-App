@@ -10,8 +10,8 @@ const Footer = () => {
   return (
     <footer
       data-testid="footer"
-      className="container pt-9 flex justify-center
-      inset-x-0 bottom-0 fixed bg-amber-200 pb-9"
+      className="container pt-7 flex justify-center
+      inset-x-0 bottom-0 fixed bg-amber-200 pb-7"
     >
       <button
         className="mx-9"

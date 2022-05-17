@@ -42,7 +42,7 @@ function FoodExploreNationalities() {
   };
 
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Explore Nationalities" />
       {/* <h1 data-testid="page-title">Explore Nationalities</h1> */}
       <select
@@ -94,7 +94,7 @@ function FoodExploreNationalities() {
           ))}
       </section>
       <Footer />
-    </>
+    </body>
   );
 }
 

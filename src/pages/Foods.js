@@ -20,7 +20,7 @@ function Foods(props) {
   }, []);
 
   return (
-    <div className="h-max bg-gradient-to-b from-cyan-200 to-purple-400">
+    <div className="h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header { ...props } title="Foods" />
       {/* <h1 data-testid="page-title">Foods</h1> */}
       <FoodCategories />

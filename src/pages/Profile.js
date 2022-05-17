@@ -9,14 +9,19 @@ function Profile({ history }) {
     history.push('/');
   };
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Profile" />
       {/* <h1 data-testid="page-title">Profile</h1> */}
-      <div>
-        <p data-testid="profile-email">
+      <div className="space-y-5 grid">
+        <p
+          className="mt-4 sm:text-left text-center text-lg text-black font-semibold"
+          data-testid="profile-email"
+        >
           {localStorage.getItem('user')}
         </p>
         <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
           type="button"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/done-recipes') }
@@ -24,6 +29,8 @@ function Profile({ history }) {
           Done Recipes
         </button>
         <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
           type="button"
           data-testid="profile-favorite-btn"
           onClick={ () => history.push('/favorite-recipes') }
@@ -31,6 +38,8 @@ function Profile({ history }) {
           Favorite Recipes
         </button>
         <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
           type="button"
           data-testid="profile-logout-btn"
           onClick={ () => handleClick() }
@@ -42,7 +51,7 @@ function Profile({ history }) {
       </div>
 
       <Footer />
-    </>
+    </body>
   );
 }
 Profile.propTypes = {

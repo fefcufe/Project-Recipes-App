@@ -19,7 +19,7 @@ function Drinks(props) {
   }, []);
 
   return (
-    <div className=" bottom-0 h-max bg-gradient-to-b from-cyan-200 to-purple-400">
+    <div className=" bottom-0 h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
 
       <Header { ...props } title="Drinks" />
       {/* <h1 data-testid="page-title">Drinks</h1> */}

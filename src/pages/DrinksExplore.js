@@ -20,10 +20,12 @@ function DrinksExplore({ history }) {
     requestAPI();
   }, []);
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Explore Drinks" />
       {/* <h1 data-testid="page-title">Explore Drinks</h1> */}
       <button
+        className="bg-purple-600 text-white rounded-lg shadow-sm
+        p-1 ml-12 mr-4 mt-5"
         type="button"
         data-testid="explore-by-ingredient"
         onClick={ () => history.push('/explore/drinks/ingredients') }
@@ -33,12 +35,13 @@ function DrinksExplore({ history }) {
       <button
         data-testid="explore-surprise"
         type="button"
+        className="bg-purple-600 text-white rounded-lg shadow-sm p-1 ml-9 mr-4"
         onClick={ () => history.push(`/drinks/${randomSupriseDrinks}`) }
       >
         Surprise me!
       </button>
       <Footer />
-    </>
+    </body>
   );
 }
 DrinksExplore.propTypes = {

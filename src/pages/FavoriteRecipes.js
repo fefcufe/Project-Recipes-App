@@ -36,7 +36,7 @@ function FavoriteRecipes() {
   };
 
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Favorite Recipes" />
       {/* <h1 data-testid="page-title">Favorite Recipes</h1> */}
       {/* Talvez criar um componente */}
@@ -118,7 +118,7 @@ function FavoriteRecipes() {
         { copiedIt && <p>Link copied!</p> }
         {/* Melhorar lógica do Copy? */}
       </div>
-    </>
+    </body>
   );
 }
 FavoriteRecipes.propTypes = {
