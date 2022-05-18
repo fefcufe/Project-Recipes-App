@@ -44,6 +44,7 @@ function DrinkCategories() {
   return (
     <div>
       <button
+        className="bg-purple-600 text-white rounded-lg shadow-sm p-1 ml-4 mr-4"
         data-testid="All-category-filter"
         onClick={ returnAll }
         type="button"
@@ -52,6 +53,7 @@ function DrinkCategories() {
       </button>
       {categories.map((category) => ((
         <button
+          className="bg-purple-400 rounded-lg shadow-sm p-0.5 ml-4 mr-4 mt-2 mb-2"
           data-testid={ `${category.strCategory}-category-filter` }
           name={ category.strCategory }
           key={ category.strCategory }

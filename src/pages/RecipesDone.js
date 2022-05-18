@@ -26,31 +26,39 @@ function RecipesDone() {
   // console.log(doneRecipes);
 
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Done Recipes" />
       {/* <h1 data-testid="page-title">Done Recipes</h1> */}
       {/* Talvez criar um componente */}
-      <button
-        type="button"
-        onClick={ () => setItemTypeName('all') }
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        type="button"
-        onClick={ () => setItemTypeName('food') }
-        data-testid="filter-by-food-btn"
-      >
-        Foods
-      </button>
-      <button
-        type="button"
-        onClick={ () => setItemTypeName('drink') }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-      </button>
+      <div className="space-y-5 grid">
+        <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
+          type="button"
+          onClick={ () => setItemTypeName('all') }
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
+          type="button"
+          onClick={ () => setItemTypeName('food') }
+          data-testid="filter-by-food-btn"
+        >
+          Foods
+        </button>
+        <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
+          type="button"
+          onClick={ () => setItemTypeName('drink') }
+          data-testid="filter-by-drink-btn"
+        >
+          Drinks
+        </button>
+      </div>
       { doneRecipes !== null && doneRecipes
         .filter((item) => item.type === (itemTypeName === 'all'
           ? item.type : itemTypeName)) // melhorar lógica?
@@ -119,7 +127,7 @@ function RecipesDone() {
             {/* Melhorar lógica do Copy? */}
           </div>
         ))}
-    </>
+    </body>
   );
 }
 

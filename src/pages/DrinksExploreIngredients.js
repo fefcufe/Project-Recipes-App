@@ -30,7 +30,7 @@ function DrinksExploreIngredients() {
   );
 
   return (
-    <>
+    <body className="h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Explore Ingredients" />
       {/* <h1 data-testid="page-title">Explore Ingredients</h1> */}
       { Ingredients[0] && Ingredients
@@ -52,11 +52,16 @@ function DrinksExploreIngredients() {
               alt="Card"
               data-testid={ `${index}-card-img` }
             />
-            <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
+            <p
+              data-testid={ `${index}-card-name` }
+              className="mt-4 sm:text-left text-center text-lg text-black font-semibold"
+            >
+              { strIngredient1 }
+            </p>
           </button>
         )) }
       <Footer />
-    </>
+    </body>
   );
 }
 

@@ -30,7 +30,7 @@ function FoodExploreIngredients() {
   );
 
   return (
-    <>
+    <body className="h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Explore Ingredients" />
       {/* <h1 data-testid="page-title">Explore Ingredients</h1> */}
       { Ingredients[0] && Ingredients
@@ -56,7 +56,7 @@ function FoodExploreIngredients() {
           </button>
         )) }
       <Footer />
-    </>
+    </body>
   );
 }
 FoodExploreIngredients.propTypes = {

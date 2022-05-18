@@ -89,51 +89,68 @@ function DrinkProgress() {
   };
 
   return (
-    <>
+    <div className=" bottom-0 h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
+
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
         src={ recipeDetails.strDrinkThumb }
       />
       <div>
-        <h1 data-testid="recipe-title">
+        <h1
+          data-testid="recipe-title"
+          className="sm:text-left text-center text-lg text-black font-semibold"
+        >
           { recipeDetails.strDrink }
         </h1>
-        <button
-          type="button"
-          onClick={ () => copyIt(recipeDetails.idDrink) }
+        <div
+          className="space-x-7 ml-2"
         >
-          <img
-            data-testid="share-btn"
-            src={ shareIcon }
-            alt="share recipe"
-          />
-        </button>
-        <button
-          type="button"
-          onClick={ () => (
-            handleButtonFavoriteDrinks(setIsFavorite, isFavorite, recipeDetails)
-          ) }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ urlImage(isFavorite) }
-            alt="favorite recipe"
-          />
-        </button>
+          <button
+            type="button"
+            onClick={ () => copyIt(recipeDetails.idDrink) }
+          >
+            <img
+              data-testid="share-btn"
+              src={ shareIcon }
+              alt="share recipe"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={ () => (
+              handleButtonFavoriteDrinks(setIsFavorite, isFavorite, recipeDetails)
+            ) }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ urlImage(isFavorite) }
+              alt="favorite recipe"
+            />
+          </button>
+        </div>
       </div>
-      <p data-testid="recipe-category">
+      <p
+        className="sm:text-left text-center text-lg text-black font-semibold"
+        data-testid="recipe-category"
+      >
         { `Recipe category:
         ${recipeDetails.strAlcoholic}` }
       </p>
 
-      <div className="ingredients-container">
+      <div
+        className="p-4 mt-4 mb-4 ml-4 mr-40
+      rounded-lg shadow-2xl bg-amber-200"
+      >
         <ul>
           { renderDrinkIngredients() }
         </ul>
       </div>
 
-      <div className="instructions-container">
+      <div
+        className="p-4 m-5 space-y-4 rounded-lg shadow-2xl
+      bg-gradient-to-b from-amber-200"
+      >
         <h3> Instructions: </h3>
         <p data-testid="instructions">
           { recipeDetails.strInstructions }
@@ -142,6 +159,8 @@ function DrinkProgress() {
 
       <button
         data-testid="finish-recipe-btn"
+        className="block w-full px-5 py-3 text-sm font-medium
+         text-white bg-cyan-400 rounded-full"
         type="button"
         onClick={ () => history.push('/done-recipes') }
         disabled={ isAllChecked }
@@ -149,7 +168,7 @@ function DrinkProgress() {
         Finish Recipes
       </button>
       { copiedIt && <p>Link copied!</p> }
-    </>
+    </div>
   );
 }
 

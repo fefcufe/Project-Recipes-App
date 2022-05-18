@@ -9,7 +9,11 @@ function Cards({ meal, index }) {
 
   const { strMeal, strMealThumb } = meal;
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <button
+      type="button"
+      className="bg-amber-200 w-36 rounded-lg ml-7 mb-2"
+      data-testid={ `${index}-recipe-card` }
+    >
       <Link
         key={ meal.idMeal }
         to={ `/foods/${meal.idMeal}` }
@@ -19,10 +23,10 @@ function Cards({ meal, index }) {
           data-testid={ `${index}-card-img` }
           src={ strMealThumb }
           alt="Card receita"
-          className="CardImg"
+          className="rounded-lg box-border h-32 w-32 border-4 absolute-inset-0 ml-2 mb-4"
         />
       </Link>
-    </div>
+    </button>
   );
 }
 
