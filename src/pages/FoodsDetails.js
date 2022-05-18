@@ -98,15 +98,15 @@ function FoodsDetails() {
     const { drinks } = recommended;
     return (drinks && drinks.slice(0, limite).map((drink, index) => (
       <div
+        className="bg-amber-200 w-36 rounded-lg ml-7 mb-2"
         data-testid={ `${index}-recomendation-card` }
-        className="recommended-card"
         key={ index }
       >
         <img
           alt="recommended-img"
           src={ drink.strDrinkThumb }
-          width="100px"
-          height="100px"
+          className="rounded-lg box-border h-12 w-12 border-4 ml-2 mb-2"
+
         />
 
         <p>
@@ -121,18 +121,26 @@ function FoodsDetails() {
   };
 
   return (
-    <>
+    <div className=" bottom-0 h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
         src={ recipeDetails.strMealThumb }
       />
-      <div>
-        <h1 data-testid="recipe-title">
+      <div
+        className="p-2 mb-5 block-right shadow-2xl
+          bg-gradient-to-b block mx-auto h-20 rounded-full sm:mx-0 sm:shrink-0 "
+      >
+        <h1
+          className="sm:text-left text-center text-lg text-black font-semibold"
+          data-testid="recipe-title"
+        >
           {recipeDetails.strMeal}
         </h1>
 
-        <div>
+        <div
+          className="space-x-7 ml-7 "
+        >
           { copied && <span>Link copied!</span> }
           <button
             type="button"
@@ -159,18 +167,20 @@ function FoodsDetails() {
         </div>
 
       </div>
-      <p data-testid="recipe-category">
-        {`Recipe category:
-        ${recipeDetails.strCategory}`}
-      </p>
 
-      <div className="ingredients-container">
+      <div
+        className="p-4 mt-4 mb-4 ml-4 mr-40
+        rounded-lg shadow-2xl bg-amber-200"
+      >
         <ul>
           { renderFoodIngredients() }
         </ul>
       </div>
 
-      <div className="instructions-container">
+      <div
+        className="p-5 m-4 space-y-4 rounded-lg shadow-2xl
+        bg-gradient-to-b from-amber-200"
+      >
         <h3> Instructions: </h3>
         <p data-testid="instructions">
           {recipeDetails.strInstructions}
@@ -196,12 +206,13 @@ function FoodsDetails() {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          className="startRecipeBtn"
+          className="block w-full px-5 py-3 text-sm font-medium
+         text-white bg-purple-500 rounded-full"
           onClick={ () => history.push(`/foods/${id}/in-progress`) }
         >
           {valueBtn(modifyBottom)}
         </button>) }
-    </>
+    </div>
   );
 }
 

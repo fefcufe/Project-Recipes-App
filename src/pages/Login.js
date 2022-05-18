@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useContext } from 'react';
+import coocking from '../css/images/undrawCooking.svg';
 import RecipesContext from '../context/RecipesContext';
 
 function Login({ history }) {
@@ -25,33 +26,52 @@ function Login({ history }) {
   }, [email, password, setButton]);
 
   return (
-    <div>
-      <label htmlFor="email-input">
-        <input
-          type="text"
-          data-testid="email-input"
-          id="email-input"
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-      </label>
-      <label htmlFor="password-input">
-        <input
-          data-testid="password-input"
-          type="password"
-          id="password-input"
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ isButtonDisabled }
-        onClick={ handleClick }
+    <div className="h-screen bg-gradient-to-b from-cyan-200 to-purple-600">
+      <div className="p-2 mb-0 space-y-4 rounded-lg shadow-2xl">
+        <label htmlFor="email-input" className="text-sm font-medium">
+          <input
+            className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+            type="text"
+            placeholder="E-mail"
+            data-testid="email-input"
+            id="email-input"
+            value={ email }
+            onChange={ (e) => setEmail(e.target.value) }
+          />
+        </label>
+        <div>
+          <label htmlFor="password-input" className="text-sm font-medium">
+            <input
+              className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+              data-testid="password-input"
+              type="password"
+              placeholder="Senha"
+              id="password-input"
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </label>
+        </div>
+        <button
+          className="block w-full px-5 py-3 text-sm font-medium
+         text-white bg-purple-500 rounded-full"
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ isButtonDisabled }
+          onClick={ handleClick }
+        >
+          Enter
+        </button>
+      </div>
+      <img src={ coocking } alt="" />
+      <footer
+        className="bg-purple-70"
       >
-        Enter
-      </button>
+        <br />
+        <br />
+        <br />
+        <br />
+      </footer>
     </div>
   );
 }

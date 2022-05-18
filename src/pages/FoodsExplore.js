@@ -20,32 +20,39 @@ function FoodsExplore({ history }) {
     requestAPI();
   }, []);
   return (
-    <>
+    <body className="h-screen bg-gradient-to-b from-cyan-200 to-purple-400">
       <Header title="Explore Foods" />
       {/* <h1 data-testid="page-title">Explore Foods</h1> */}
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ () => history.push('/explore/foods/ingredients') }
-      >
-        By Ingredient
-      </button>
-      <button
-        data-testid="explore-by-nationality"
-        type="button"
-        onClick={ () => history.push('/explore/foods/nationalities') }
-      >
-        By Nationality
-      </button>
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ () => history.push(`/foods/${randomSupriseFoods}`) }
-      >
-        Surprise me!
-      </button>
+      <div className="space-y-5 grid">
+        <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
+          type="button"
+          data-testid="explore-by-ingredient"
+          onClick={ () => history.push('/explore/foods/ingredients') }
+        >
+          By Ingredient
+        </button>
+        <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm p-2 ml-5 mr-5 mt-5"
+          data-testid="explore-by-nationality"
+          type="button"
+          onClick={ () => history.push('/explore/foods/nationalities') }
+        >
+          By Nationality
+        </button>
+        <button
+          className="bg-purple-600 text-white rounded-lg shadow-sm
+          p-2 ml-5 mr-5 mt-5"
+          data-testid="explore-surprise"
+          type="button"
+          onClick={ () => history.push(`/foods/${randomSupriseFoods}`) }
+        >
+          Surprise me!
+        </button>
+      </div>
       <Footer />
-    </>
+    </body>
   );
 }
 

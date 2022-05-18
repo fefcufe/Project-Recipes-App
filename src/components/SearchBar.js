@@ -45,63 +45,75 @@ function SearchBar() {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search Recipe"
-        data-testid="search-input"
-        onChange={ ({ target }) => {
-          if (selectedRadio === 'firstLetter') {
-            if (target.value.length > 1) {
-              global.alert('Your search must have only 1 (one) character');
+    <form>
+      <div className="bg-amber-200">
+        <input
+          type="text"
+          className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm"
+          placeholder="Search Recipe"
+          data-testid="search-input"
+          onChange={ ({ target }) => {
+            if (selectedRadio === 'firstLetter') {
+              if (target.value.length > 1) {
+                global.alert('Your search must have only 1 (one) character');
+              }
+              setInputValue(target.value);
             }
             setInputValue(target.value);
-          }
-          setInputValue(target.value);
-        } }
-      />
-      <label htmlFor="ingredient-search-radio">
-        Ingredient
-        <input
-          type="radio"
-          data-testid="ingredient-search-radio"
-          id="ingredient-search-radio"
-          name="search-radio"
-          onChange={ () => setSelectedRadio('ingredient') }
+          } }
         />
-      </label>
-      <label htmlFor="name-search-radio">
-        Name
-        <input
-          type="radio"
-          data-testid="name-search-radio"
-          id="name-search-radio"
-          name="search-radio"
-          onChange={ () => setSelectedRadio('name') }
-        />
-      </label>
-      <label htmlFor="first-letter-search-radio">
-        First Letter
-        <input
-          type="radio"
-          data-testid="first-letter-search-radio"
-          id="first-letter-search-radio"
-          name="search-radio"
-          onChange={ () => setSelectedRadio('firstLetter') }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={
-          areYouFoodPage
-            ? () => getFood(foodURLGenerator(inputValue))
-            : () => getDrink(drinkURLGenerator(inputValue))
-        }
-      >
-        Search
-      </button>
-    </div>
+        <div className="mt-1">
+          <label
+            className="inline-flex items-center ml-2"
+            htmlFor="ingredient-search-radio"
+          >
+            Ingredient
+            <input
+              className="form-radio ml-1 mr-4"
+              type="radio"
+              data-testid="ingredient-search-radio"
+              id="ingredient-search-radio"
+              name="search-radio"
+              onChange={ () => setSelectedRadio('ingredient') }
+            />
+          </label>
+          <label className="font-xl" htmlFor="name-search-radio">
+            <span classNmae="ml-2 font-2xl">Name</span>
+            <input
+              className="form-radio ml-1 mr-4"
+              type="radio"
+              data-testid="name-search-radio"
+              id="name-search-radio"
+              name="search-radio"
+              onChange={ () => setSelectedRadio('name') }
+            />
+          </label>
+          <label className="radio" htmlFor="first-letter-search-radio">
+            First Letter
+            <input
+              className="form-radio ml-1 mr-4 "
+              type="radio"
+              data-testid="first-letter-search-radio"
+              id="first-letter-search-radio"
+              name="search-radio"
+              onChange={ () => setSelectedRadio('firstLetter') }
+            />
+          </label>
+          <button
+            type="button"
+            className="rounded-lg text-white bg-amber-400 p-1"
+            data-testid="exec-search-btn"
+            onClick={
+              areYouFoodPage
+                ? () => getFood(foodURLGenerator(inputValue))
+                : () => getDrink(drinkURLGenerator(inputValue))
+            }
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
   );
 }
 

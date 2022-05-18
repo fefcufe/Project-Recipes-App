@@ -118,18 +118,26 @@ function DrinksDetails() {
   };
 
   return (
-    <>
+    <div className=" bottom-0 h-maxeen bg-gradient-to-b from-cyan-200 to-purple-400">
       <img
         data-testid="recipe-photo"
         alt="recipe-img"
         src={ recipeDetails.strDrinkThumb }
       />
-      <div>
-        <h1 data-testid="recipe-title">
+      <div
+        className="p-2 mb-5 block-right shadow-2xl
+      bg-gradient-to-b block mx-auto h-20 rounded-full sm:mx-0 sm:shrink-0 "
+      >
+        <h1
+          data-testid="recipe-title"
+          className="sm:text-left text-center text-lg text-black font-semibold"
+        >
           {recipeDetails.strDrink}
         </h1>
 
-        <div>
+        <div
+          className="space-x-7 ml-7 "
+        >
           { copied && <span>Link copied!</span> }
           <button
             type="button"
@@ -161,13 +169,19 @@ function DrinksDetails() {
         ${recipeDetails.strAlcoholic}`}
       </p>
 
-      <div className="ingredients-container">
+      <div
+        className="p-4 mt-4 mb-4 ml-4 mr-40
+        rounded-lg shadow-2xl bg-amber-200"
+      >
         <ul>
           { renderDrinkIngredients() }
         </ul>
       </div>
 
-      <div className="instructions-container">
+      <div
+        className="p-5 m-4 space-y-4 rounded-lg shadow-2xl
+        bg-gradient-to-b from-amber-200"
+      >
         <h3> Instructions: </h3>
         <p data-testid="instructions">
           {recipeDetails.strInstructions}
@@ -182,12 +196,13 @@ function DrinksDetails() {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          className="startRecipeBtn"
+          className="block w-full px-5 py-3 text-sm font-medium
+         text-white bg-purple-500 rounded-full"
           onClick={ () => history.push(`/drinks/${id}/in-progress`) }
         >
           {valueBtn(modifyBottom)}
         </button>) }
-    </>
+    </div>
   );
 }
 

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -12,17 +16,3 @@ code {
     monospace;
 }
 
-footer, .startRecipeBtn {
-  bottom: 0;
-  position: fixed;
-}
-
-.CardImg {
-  width: 100px;
-  height: 100px;
-}
-
-.cardsContainer {
-  display: flex;
-  width: 310px;
-}
