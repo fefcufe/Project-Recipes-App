@@ -8,7 +8,7 @@
 ---
 
 # Grupo
-- [Matheus Vital](https://github.com/VitalMatheus)
+- [Alex Horman](https://github.com/Alex-Horman-de-Medeiros-Correia)
 - [Róger Consul](https://github.com/rogerconsul)
 - [Vanessa Santos](https://github.com/VanehSann)
 - [Vitor Memoria](https://github.com/VitorVM53)
